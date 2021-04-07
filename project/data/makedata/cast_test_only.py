@@ -6,7 +6,7 @@ from tqdm import tqdm
 import pickle
 import torch
 
-cond, cnt = "test", 500000
+cond, cnt = "test", 100000
 data_path = Path(f"{cond}")
 input_array = []
 target_array = []

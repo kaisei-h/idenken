@@ -5,7 +5,7 @@ import numpy as np
 from tqdm import tqdm
 import sys
 
-max_length = 252
+max_length = 1020
 with open('random_out/out_{}.txt'.format(sys.argv[1]), 'r') as f:
 	next(f)
 	acc = f.readlines()

@@ -7,7 +7,7 @@ import pickle
 import torch
 from datetime import datetime
 
-cond, cnt = "train", 500000
+cond, cnt = "train", 100000
 data_path = Path(f"{cond}")
 input_array = []
 target_array = []

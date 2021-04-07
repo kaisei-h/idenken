@@ -12,7 +12,7 @@ def train(device, net, dataloaders_dict, criterion, optimizer, epochs):
     train_loss_list = []
     val_loss_list = []
 
-    for epoch in tqdm(range(epochs)):
+    for epoch in range(epochs):
         
         print(f'Epoch {epoch+1}/{epochs}')
         

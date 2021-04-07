@@ -4,7 +4,7 @@
 #$ -V
 #$ -e long_data.log
 #$ -o long_data.log
-#$ -t 1-500000:1000
+#$ -t 1-100000:1000
 
 source ~/.bashrc
 
