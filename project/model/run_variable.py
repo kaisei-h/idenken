@@ -24,17 +24,17 @@ def datePrint(*args, **kwargs):
 
 
 datePrint("loading pickle data")
-input_val0 = pickle.load(open("../data/max_span100/input_test0.pkl","rb"))
-target_val0 = pickle.load(open("../data/max_span100/target_test0.pkl","rb")) #256のみ
+input_val0 = pickle.load(open("../data/max_span100_256/input_val0.pkl","rb"))
+target_val0 = pickle.load(open("../data/max_span100_256/target_val0.pkl","rb")) #256のみ
 target_val0 = torch.flip(target_val0, dims=[1])
-input_train0 = pickle.load(open("../data/max_span100/input_train0.pkl","rb"))
-target_train0 = pickle.load(open("../data/max_span100/target_train0.pkl","rb")) #256以下
+input_train0 = pickle.load(open("../data/max_span100_256/input_train0.pkl","rb"))
+target_train0 = pickle.load(open("../data/max_span100_256/target_train0.pkl","rb")) #256以下
 target_train0 = torch.flip(target_train0, dims=[1])
-input_val1 = pickle.load(open("../data/max_span100/input_test0.pkl","rb"))
-target_val1 = pickle.load(open("../data/max_span100/target_test0.pkl","rb")) #256のみ
+input_val1 = pickle.load(open("../data/max_span100_256/input_val1.pkl","rb"))
+target_val1 = pickle.load(open("../data/max_span100_256/target_val1.pkl","rb")) #256のみ
 target_val1 = torch.flip(target_val1, dims=[1])
-input_train1 = pickle.load(open("../data/max_span100/input_train0.pkl","rb"))
-target_train1 = pickle.load(open("../data/max_span100/target_train0.pkl","rb")) #256以下
+input_train1 = pickle.load(open("../data/max_span100_256/input_train1.pkl","rb"))
+target_train1 = pickle.load(open("../data/max_span100_256/target_train1.pkl","rb")) #256以下
 target_train1 = torch.flip(target_train1, dims=[1])
 
 input_all = torch.cat([input_train0, input_val0, input_train1, input_val1], dim=0)
@@ -61,7 +61,7 @@ dataloaders_dict = {'train': train_dataloader, 'val': val_dataloader}
 for prm1 in [128, 256]:
     for prm2 in [1e-3, 1e-5, 1e-7]:
         datePrint(prm1, 'filter', prm2, 'lr')
-        net = model.Fixed(num_layer=32, num_filters=prm1, flag=False).to(device)
+        net = model.Variable(num_layer=32, num_filters=prm1, flag=False).to(device)
         net.apply(model.weight_init) #重みの初期化適用
 
         optimizer = optim.Adam(net.parameters(), lr=prm2, weight_decay=1e-6, eps=1e-5)
@@ -87,4 +87,4 @@ for prm1 in [128, 256]:
         divider = make_axes_locatable(ax)
         cax = divider.append_axes("right", size="5%", pad=0.1)
         fig.colorbar(cset, cax=cax).ax.set_title("count")
-        plt.savefig(f'{val_loss_list[-1]:.2f}_{prm1}_{prm2}.png')
+        plt.savefig(f'variable_{val_loss_list[-1]:.2f}_{prm1}_{prm2}.png')

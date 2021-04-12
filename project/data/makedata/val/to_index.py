@@ -23,7 +23,7 @@ import sys
 #		writer = csv.writer(f)
 #		writer.writerow(seq_number)
 
-max_length = 1024
+# max_length = 1024
 with open('random/sample_{}.txt'.format(sys.argv[1]), 'r') as f:
         next(f)
         seq = f.read()

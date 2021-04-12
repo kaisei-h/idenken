@@ -1,0 +1,18 @@
+if: Expression Syntax.
+then: Command not found.
+/home/kaisei-h/.local/lib/python3.7/site-packages/torch/nn/modules/loss.py:445: UserWarning: Using a target size (torch.Size([64, 1020])) that is different to the input size (torch.Size([256, 252])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+Traceback (most recent call last):
+  File "run_fixed.py", line 76, in <module>
+    train_loss_list, val_loss_list, data_all, target_all, output_all = mode.train(device, net, dataloaders_dict, criterion, optimizer, epochs)               
+  File "/lustre7/home/kaisei-h/project/model/mode.py", line 54, in train
+    loss = criterion(output, target)
+  File "/home/kaisei-h/.local/lib/python3.7/site-packages/torch/nn/modules/module.py", line 722, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/kaisei-h/.local/lib/python3.7/site-packages/torch/nn/modules/loss.py", line 445, in forward
+    return F.mse_loss(input, target, reduction=self.reduction)
+  File "/home/kaisei-h/.local/lib/python3.7/site-packages/torch/nn/functional.py", line 2647, in mse_loss
+    expanded_input, expanded_target = torch.broadcast_tensors(input, target)
+  File "/home/kaisei-h/.local/lib/python3.7/site-packages/torch/functional.py", line 65, in broadcast_tensors
+    return _VF.broadcast_tensors(tensors)
+RuntimeError: The size of tensor a (252) must match the size of tensor b (1020) at non-singleton dimension 1
