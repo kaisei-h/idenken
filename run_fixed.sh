@@ -9,4 +9,5 @@
 #$ -l s_rt=120:00:00
 
 source ~/.bashrc
-python3 run.py
+cd /home/kaisei-h/project/model
+python3 run_fixed.py
