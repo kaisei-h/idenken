@@ -1,6 +1,6 @@
 #!/bin/bash
-#$ -o jupyter_out.log
-#$ -e jupyter_error.log
+#$ -o j_out.log
+#$ -e j_error.log
 #$ -cwd
 #$ -m be
 #$ -l gpu

@@ -3,8 +3,8 @@
 #$ -cwd
 #$ -l s_vmem=32G
 #$ -l mem_req=32G
-#$ -e cast_data.log
-#$ -o cast_data.log
+#$ -e c_error.log
+#$ -o c_out.log
 
 source ~/.bashrc
 

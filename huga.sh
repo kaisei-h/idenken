@@ -2,8 +2,8 @@
 #$ -S /bin/bash
 #$ -cwd
 #$ -V
-#$ -e long_data.log
-#$ -o long_data.log
+#$ -e data.log
+#$ -o data.log
 #$ -t 1-100000:1000
 
 source ~/.bashrc

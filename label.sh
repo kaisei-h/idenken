@@ -2,8 +2,6 @@
 #$ -S /bin/bash
 #$ -cwd
 #$ -V
-#$ -e data.log
-#$ -o data.log
 
 source ~/.bashrc
 

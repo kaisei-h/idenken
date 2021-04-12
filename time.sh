@@ -2,8 +2,8 @@
 #$ -S /bin/bash
 #$ -cwd
 #$ -V
-#$ -e time_data.log
-#$ -o time_data.log
+#$ -e t_error.log
+#$ -o t_out.log
 
 source ~/.bashrc
 
