@@ -1,9 +1,0 @@
-Warning: no access to tty (Bad file descriptor).
-Thus no job control in this shell.
-[2021/04/09 16:16:18] loading pickle data
-torch.Size([100000, 1024])
-torch.Size([100000, 1024])
-torch.Size([100000, 1020])
-torch.Size([100000, 1020])
-[2021/04/09 16:16:22] 0.001 lr 32 num_layer
-Epoch 1/20

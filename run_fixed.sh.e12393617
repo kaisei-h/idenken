@@ -1,6 +1,0 @@
-if: Expression Syntax.
-then: Command not found.
-  File "run_fixed.py", line 67
-    net = model.Fixed(num_layer=prm2, ,length=1024, num_filters=400, flag=False).to(device)
-                                      ^
-SyntaxError: invalid syntax
