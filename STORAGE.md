@@ -21,4 +21,3 @@ optimizer = optim.Adam(net.parameters(), lr=1e-3, weight_decay=1e-6, eps=1e-5)
 epochs = 20
 ```
 
-
