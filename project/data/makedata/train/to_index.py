@@ -4,7 +4,7 @@ import numpy as np
 from tqdm import tqdm
 import sys
 
-max_length = 1024
+max_length = sys.argv[2]
 with open('random/sample_{}.txt'.format(sys.argv[1]), 'r') as f:
 	next(f)
 	seq = f.read()

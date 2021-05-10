@@ -1,0 +1,16 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+torch.Size([100000, 508])
+torch.Size([100000, 508])
+torch.Size([100000, 508])
+torch.Size([100000, 508])
+torch.Size([100000, 508])
+torch.Size([500000, 512])
+torch.Size([500000, 508])
+torch.Size([100000, 508])
+torch.Size([100000, 508])
+torch.Size([100000, 508])
+torch.Size([100000, 508])
+torch.Size([100000, 508])
+torch.Size([500000, 512])
+torch.Size([500000, 508])

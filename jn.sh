@@ -4,7 +4,7 @@
 #$ -cwd
 #$ -m be
 #$ -l gpu
-#$ -l cuda=1
+#$ -l cuda=2
 #$ -l s_vmem=96G 
 #$ -l mem_req=96G
 #$ -N j_serv
