@@ -60,7 +60,7 @@ def train(device, net, dataloaders_dict, criterion, optimizer, epochs):
             avg_loss = epoch_loss / len(dataloaders_dict[phase].dataset)
             
             finish = time.time()
-            print(f'{phase} Loss:{avg_loss} Timer:{finish - start}')
+            print(f'{phase} Loss:{avg_loss:.4f} Timer:{finish - start:.4f}')
             
             if phase=='val':
                 val_loss_list.append(avg_loss)
