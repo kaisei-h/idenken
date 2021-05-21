@@ -24,7 +24,7 @@ class Dataset(torch.utils.data.Dataset):
 
 
 class Fixed(nn.Module):
-    def __init__(self, emb_dim=5, num_layer=8, mid_units=400, num_filters=128, kernel_sizes=7, flag=0, length=256):
+    def __init__(self, emb_dim=5, num_layer=8, mid_units=400, num_filters=128, kernel_sizes=7, length=256):
         super(Fixed, self).__init__()
         self.filter = num_filters
         self.max_length = length
@@ -39,15 +39,6 @@ class Fixed(nn.Module):
                 self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters,
                                                       kernel_size=kernel_sizes, padding=kernel_sizes//2))
         
-#ResNet
-        self.flag = flag
-        if (self.flag!=False):
-            self.residuals = nn.ModuleList()
-            block_config = flag
-            for i in block_config:
-                self.residuals.append(ResidualBlockPSP(n_blocks=i, in_channels=num_filters,
-                                                   mid_channels=num_filters//2, out_channels=num_filters))
-
 #線形層
         self.mid = nn.Linear(self.max_length*num_filters, mid_units)
         self.fc = nn.Linear(mid_units, self.max_length-4)
@@ -58,11 +49,6 @@ class Fixed(nn.Module):
         for i, l in enumerate(self.convs):
             x = l(x)
 
-#ResNet        
-        if (self.flag!=False):
-            for i, l in enumerate(self.residuals):
-                x = l(x)
-
 #線形層
         x = x.view(-1, self.max_length*self.filter)
         x = F.relu(self.mid(x))
@@ -71,7 +57,7 @@ class Fixed(nn.Module):
         return x
 
 class Variable(nn.Module):
-    def __init__(self, emb_dim=5, num_layer=8, num_filters=128, kernel_sizes=7, flag=0):
+    def __init__(self, emb_dim=5, num_layer=8, num_filters=128, kernel_sizes=7):
         super(Variable, self).__init__()
         self.filter = num_filters
         self.embedding = nn.Embedding(5, emb_dim)
@@ -85,24 +71,6 @@ class Variable(nn.Module):
                 self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters,
                                                       kernel_size=kernel_sizes, padding=kernel_sizes//2))
         
-# #self_attention
-#         self.self_attention1 = Self_Attention(in_dim=num_filters)
-#         self.convs2 = nn.ModuleList()
-#         for i in range(num_layer//2):
-#             self.convs2.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters,
-#                                                    kernel_size=kernel_sizes, padding=kernel_sizes//2))
-#         self.self_attention2 = Self_Attention(in_dim=num_filters)
-#ResNet
-        self.flag = flag
-        if (self.flag!=False):
-            self.residuals = nn.ModuleList()
-            block_config = flag
-            for i in block_config:
-                self.residuals.append(ResidualBlockPSP(n_blocks=i, in_channels=num_filters,
-                                                   mid_channels=num_filters//2, out_channels=num_filters))
-
-#デコード
-#         self.fc = DecodePSPFeature(in_channels=num_filters, length=1, n_classes=self.max_length-4)
         self.fc = nn.Conv1d(in_channels=num_filters, out_channels=1, kernel_size=5)
 
     def forward(self, x):
@@ -111,22 +79,200 @@ class Variable(nn.Module):
         for i, l in enumerate(self.convs):
             x = l(x)
 
-# #self_attention
-#         x, attention_map1 = self.self_attention1(x)
-#         for i, l in enumerate(self.convs2):
-#             x = l(x)
-#         x, attention_map2 = self.self_attention2(x)
-#ResNet        
-        if (self.flag!=False):
-            for i, l in enumerate(self.residuals):
-                x = l(x)
+#デコード
+        x = self.fc(x)
+        x = x.view(x.shape[0], -1)
+        return x
+
+class new_Variable(nn.Module):
+    def __init__(self, emb_dim=5, num_layer=8, num_filters=64, kernel_sizes=7):
+        super(new_Variable, self).__init__()
+        self.filter = num_filters
+        self.embedding = nn.Embedding(5, emb_dim)
+
+        self.convs = nn.ModuleList()
+        self.convs.append(conv1DBatchNormRelu(in_channels=emb_dim, out_channels=num_filters,
+                         kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        for i in range(1, num_layer):
+            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters*i, out_channels=num_filters*(i+1), 
+                                                  kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+            self.convs.append(conv1DBatchNorm(in_channels=num_filters*(i+1), out_channels=num_filters*(i+1), 
+                                                  kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+            self.convs.append(nn.MaxPool1d(kernel_size=2))
+
+        for i in range(num_layer, 1, -1):
+            self.convs.append(Tconv1DBatchNormRelu(in_channels=num_filters*i, out_channels=num_filters*(i-1), 
+                                                  kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=2))
+        #     self.convs.append(conv1DBatchNorm(in_channels=num_filters*(i-1), out_channels=num_filters*(i-1), 
+        #                                           kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
         
+        self.fc = nn.Conv1d(in_channels=num_filters, out_channels=1, kernel_size=5)
+
+    def forward(self, x):
+        x = self.embedding(x.long())
+        x = torch.transpose(x, 1, 2)
+        for i, l in enumerate(self.convs):
+            x = l(x)
+
 #デコード
         x = self.fc(x)
         x = x.view(x.shape[0], -1)
         return x
 
 
+class new_Variable_2(nn.Module):
+    def __init__(self, emb_dim=5, num_layer=8, num_filters=64, kernel_sizes=7):
+        super(new_Variable_2, self).__init__()
+        self.filter = num_filters
+        self.embedding = nn.Embedding(5, emb_dim)
+
+        self.convs = nn.ModuleList()
+        self.convs.append(conv1DBatchNormRelu(in_channels=emb_dim, out_channels=num_filters,
+                         kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        for i in range(1, num_layer):
+            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters*2**(i-1), out_channels=num_filters*2**i, 
+                                                  kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+            self.convs.append(conv1DBatchNorm(in_channels=num_filters*2**i, out_channels=num_filters*2**i, 
+                                                  kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+            self.convs.append(nn.AvgPool1d(2))
+
+        for i in range(num_layer, 1, -1):
+            self.convs.append(nn.Upsample(scale_factor=2, mode='linear'))
+            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters*2**(i-1), out_channels=num_filters*2**(i-2), 
+                                                  kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        #     self.convs.append(conv1DBatchNorm(in_channels=num_filters*(i-1), out_channels=num_filters*(i-1), 
+        #                                           kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        
+        self.fc = nn.Conv1d(in_channels=num_filters, out_channels=1, kernel_size=5)
+
+    def forward(self, x):
+        x = self.embedding(x.long())
+        x = torch.transpose(x, 1, 2)
+        for i, l in enumerate(self.convs):
+            x = l(x)
+
+#デコード
+        x = self.fc(x)
+        x = x.view(x.shape[0], -1)
+        return x
+
+
+class new_Variable_3(nn.Module):
+    def __init__(self, emb_dim=5, num_layer=8, num_filters=64, kernel_sizes=7):
+        super(new_Variable_3, self).__init__()
+        self.filter = num_filters
+        self.embedding = nn.Embedding(5, emb_dim)
+
+        self.convs = nn.ModuleList()
+        self.convs.append(conv1DBatchNormRelu(in_channels=emb_dim, out_channels=16,
+                         kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        
+        self.convs.append(conv1DBatchNormRelu(in_channels=16, out_channels=16, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(conv1DBatchNormRelu(in_channels=16, out_channels=32, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(nn.MaxPool1d(2))
+        self.convs.append(conv1DBatchNormRelu(in_channels=32, out_channels=32, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(conv1DBatchNormRelu(in_channels=32, out_channels=64, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(nn.MaxPool1d(2))
+        self.convs.append(conv1DBatchNormRelu(in_channels=64, out_channels=64, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(conv1DBatchNormRelu(in_channels=64, out_channels=128, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(nn.MaxPool1d(2))
+        self.convs.append(conv1DBatchNormRelu(in_channels=128, out_channels=128, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(conv1DBatchNormRelu(in_channels=128, out_channels=128, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(conv1DBatchNormRelu(in_channels=128, out_channels=256, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(nn.MaxPool1d(2))
+        self.convs.append(conv1DBatchNormRelu(in_channels=256, out_channels=256, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(conv1DBatchNormRelu(in_channels=256, out_channels=256, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(conv1DBatchNormRelu(in_channels=256, out_channels=512, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(nn.MaxPool1d(2))
+        self.convs.append(conv1DBatchNormRelu(in_channels=512, out_channels=512, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(conv1DBatchNormRelu(in_channels=512, out_channels=512, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(conv1DBatchNormRelu(in_channels=512, out_channels=1024, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(nn.MaxPool1d(2))
+        self.convs.append(conv1DBatchNormRelu(in_channels=1024, out_channels=1024, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(conv1DBatchNormRelu(in_channels=1024, out_channels=1024, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(conv1DBatchNormRelu(in_channels=1024, out_channels=2048, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(nn.MaxPool1d(2))
+
+
+        self.convs.append(nn.Upsample(scale_factor=2, mode='linear'))
+        self.convs.append(conv1DBatchNormRelu(in_channels=2048, out_channels=1024, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(conv1DBatchNormRelu(in_channels=1024, out_channels=1024, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(nn.Upsample(scale_factor=2, mode='linear'))
+        self.convs.append(conv1DBatchNormRelu(in_channels=1024, out_channels=512, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(conv1DBatchNormRelu(in_channels=512, out_channels=512, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(nn.Upsample(scale_factor=2, mode='linear'))
+        self.convs.append(conv1DBatchNormRelu(in_channels=512, out_channels=256, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(conv1DBatchNormRelu(in_channels=256, out_channels=256, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(nn.Upsample(scale_factor=2, mode='linear'))
+        self.convs.append(conv1DBatchNormRelu(in_channels=256, out_channels=128, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(conv1DBatchNormRelu(in_channels=128, out_channels=128, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(nn.Upsample(scale_factor=2, mode='linear'))
+        self.convs.append(conv1DBatchNormRelu(in_channels=128, out_channels=64, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(nn.Upsample(scale_factor=2, mode='linear'))
+        self.convs.append(conv1DBatchNormRelu(in_channels=64, out_channels=32, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(nn.Upsample(scale_factor=2, mode='linear'))
+        self.convs.append(conv1DBatchNormRelu(in_channels=32, out_channels=16, 
+                                                kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+
+        self.fc = nn.Conv1d(in_channels=16, out_channels=1, kernel_size=5)
+    def forward(self, x):
+        x = self.embedding(x.long())
+        x = torch.transpose(x, 1, 2)
+        for i, l in enumerate(self.convs):
+            x = l(x)
+
+#デコード
+        x = self.fc(x)
+        x = x.view(x.shape[0], -1)
+        return x
+
+
+
+# class SENet(nn.Module):
+#     def __init__(self):
+#         super(SENet, self).__init__()
+
+#         self.avg_pool = nn.AdaptiveAvgPool1d(1)
+#         self.fc = nn.Sequential(
+#             nn.Linear(channel, channel//reduction, bias=False),
+#             nn.ReLU(inplace=True),
+#             nn.Linear(channel//reduction, channel, bias=False),
+#             nn.Sigmoid()
+#         )
+
+#     def forward(self, x):
+#         b, c, _ = x.size()
+#         y = self.avg_pool(x).view(b)
+#         y = self.fc(y).view(b, c, 1)
+#         return x * y.expand_as(x)
 
 class PSPNet(nn.Module):
     def __init__(self):
@@ -172,9 +318,9 @@ class PSPNet(nn.Module):
 
 
 class conv1DBatchNormRelu(nn.Module):
-    def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1):
+    def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, groups=1):
         super(conv1DBatchNormRelu, self).__init__()
-        self.conv = nn.Conv1d(in_channels, out_channels, kernel_size, stride, padding, dilation)
+        self.conv = nn.Conv1d(in_channels, out_channels, kernel_size, stride, padding, dilation, groups)
         self.batchnorm = nn.BatchNorm1d(out_channels)
         self.relu = nn.ReLU(inplace=True)
         
@@ -185,11 +331,24 @@ class conv1DBatchNormRelu(nn.Module):
 
         return output
 
+class Tconv1DBatchNormRelu(nn.Module):
+    def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, groups=1):
+        super(Tconv1DBatchNormRelu, self).__init__()
+        self.conv = nn.ConvTranspose1d(in_channels, out_channels, kernel_size, stride, padding, dilation, groups)
+        self.batchnorm = nn.BatchNorm1d(out_channels)
+        self.relu = nn.ReLU(inplace=True)
+        
+    def forward(self, x):
+        x = self.conv(x)
+        x = self.batchnorm(x)
+        output = self.relu(x)
+
+        return output
 
 class conv1DBatchNorm(nn.Module):
-    def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1):
+    def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1, groups=1):
         super(conv1DBatchNorm, self).__init__()
-        self.conv = nn.Conv1d(in_channels, out_channels, kernel_size, stride, padding, dilation)
+        self.conv = nn.Conv1d(in_channels, out_channels, kernel_size, stride, padding, dilation, groups)
         self.batchnorm = nn.BatchNorm1d(out_channels)
         
     def forward(self, x):
@@ -197,6 +356,54 @@ class conv1DBatchNorm(nn.Module):
         output = self.batchnorm(x)
 
         return output
+
+
+class DSconv1D(nn.Module):
+    def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1):
+        super(DSconv1D, self).__init__()
+        self.depthwise = nn.Conv1d(in_channels, in_channels, kernel_size, stride, padding, dilation, groups=in_channels)
+        self.bn_d = nn.BatchNorm1d(in_channels)
+        self.pointwise = nn.Conv1d(in_channels, out_channels, kernel_size=1, padding=0)
+        self.bn_p = nn.BatchNorm1d(out_channels)
+        self.relu_p = nn.ReLU(inplace=True)
+
+    def forward(self, x):
+        x = self.bn_d(self.depthwise(x))
+        output = self.relu_p(self.bn_p(self.pointwise(x)))
+
+        return output
+
+
+class BottleNeck(nn.Module):
+    def __init__(self, in_channels, mid_channels, kernel_size, stride=1, padding=0, dilation=1):
+        super(bottleNeckIdentifyPSP, self).__init__()
+        
+        self.bn = nn.BatchNorm1d(in_channels)
+        self.cbr_1 = conv1DBatchNormRelu(in_channels, mid_channels, kernel_size=1)
+        self.cb_2 = conv1DBatchNorm(mid_channels, mid_channels, kernel_size=kernel_size, padding=padding)
+        self.cb_3 = conv1DBatchNorm(mid_channels, in_channels, kernel_size=1)
+        
+    def forward(self, x):
+        conv = self.cb_3(self.cb_2(self.cbr_1(self.nb(x))))
+        residual = x
+        return self.relu(conv + residual)
+
+
+class InvertedBottleNeck(nn.Module):
+    def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=0, dilation=1):
+        super(InvertedBottleNeck, self).__init__()
+        
+        mid_channels = in_channels*6
+        self.bn = nn.BatchNorm1d(in_channels)
+        self.pw1 = conv1DBatchNormRelu(in_channels, mid_channels, kernel_size=1, padding=0)
+        self.dw = conv1DBatchNorm(mid_channels, mid_channels, kernel_size, padding=padding, groups=mid_channels)
+        self.pw2 = conv1DBatchNorm(mid_channels, out_channels, kernel_size=1, padding=0)
+        
+    def forward(self, x):
+        conv = self.pw2(self.dw(self.pw1(self.bn(x))))
+        residual = x
+        return self.relu(conv + residual)
+
 
         
 class FeatureMap_convolution(nn.Module):
