@@ -3,8 +3,8 @@
 #$ -m be
 #$ -l gpu
 #$ -l cuda=1
-#$ -l s_vmem=96G
-#$ -l mem_req=96G
+#$ -l s_vmem=64G
+#$ -l mem_req=64G
 #$ -e r_v_error2.log
 #$ -o r_v_out2.log
 #$ -l d_rt=200:00:00
