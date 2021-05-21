@@ -480,5 +480,77 @@ num_layer=64, num_filters=128, kernel_sizes=5
 ```
 
 
+W=20のMobileNet検証
+DSCNN
+![](https://i.imgur.com/GLTWg7h.png)
+![](https://i.imgur.com/vOU56FS.png)
+Total Tensors: 17765864 	Used Memory: 67.84M
+The allocated memory on cuda:0: 67.74M
+Memory differs due to the matrix alignment or invisible gradient buffer tensors
+Epoch 20/20
+train Loss:1.5776 Timer:1724.5514
+val Loss:1.6303 Timer:58.1669
+num_layer=64, num_filters=256, kernel_sizes=11
+
+
+## ダウンサンプリングtrial
+512塩基
+180万学習+20万テスト
+
+
+![](https://i.imgur.com/n0MTp2A.png)
+maxpoolダウンサンプリング Tconvアップサンプリング
+```
+2conv+maxpool
+convtransposed
+num_layer=8, num_filters=128, kernel_sizes=7
+Total Tensors: 61885360 	Used Memory: 236.09M
+Epoch 15/20
+train Loss:1.3214 Timer:3721.4693
+val Loss:1.4827 Timer:145.0116
+```
+![](https://i.imgur.com/Ylb0Vax.png)
+strideダウンサンプリングTconvアップサンプリング
+```
+2conv
+convtransposed
+num_layer=8, num_filters=128, kernel_sizes=7
+Total Tensors: 61885360 	Used Memory: 236.09M
+Epoch 20/20
+train Loss:1.4975 Timer:3230.7465
+val Loss:1.5527 Timer:126.6187
+```
+
+![](https://i.imgur.com/EL2b38m.png)
+```
+maxpool
+upsample
+Epoch 20/20
+train Loss:1.5202 Timer:4664.4286
+val Loss:1.7447 Timer:216.9864
+num_layer=8, num_filters=128, kernel_sizes=7
+```
+
+![](https://i.imgur.com/kY6RP1Y.png)
+```
+maxpool
+upsample(nearest)
+Epoch 15/20
+train Loss:2.3705 Timer:1848.0404
+val Loss:2.3645 Timer:67.0252
+```
+
+![](https://i.imgur.com/ZwDEYAS.png)
+dilationダウンサンプリングTconv1層アップサンプリング
+```
+dilationあげていく
+convtransposed 1層
+num_layer=8, num_filters=128, kernel_sizes=11
+Total Tensors: 67964969 	Used Memory: 259.27M
+Epoch 10/20
+train Loss:2.9278 Timer:12038.3039
+val Loss:2.9786 Timer:377.1949
+```
+
 
 ###### tags: `研究`
