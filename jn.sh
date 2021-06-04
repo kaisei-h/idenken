@@ -4,9 +4,9 @@
 #$ -cwd
 #$ -m be
 #$ -l gpu
-#$ -l cuda=1
-#$ -l s_vmem=64G 
-#$ -l mem_req=64G
+#$ -l cuda=2
+#$ -l s_vmem=96G 
+#$ -l mem_req=96G
 #$ -N j_serv
 #$ -l d_rt=120:00:00
 #$ -l s_rt=120:00:00
