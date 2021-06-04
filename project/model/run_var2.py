@@ -9,6 +9,7 @@ from matplotlib.colors import LogNorm
 import pickle
 import gc
 import re
+from torchsummary import summary
 # ここから自作
 import model
 import result
@@ -55,15 +56,16 @@ def lambda_epoch(epoch):
     return math.pow((1-epoch/max_epoch), 0.9)
 
 
-batch_size = 64
-train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=1)
-val_dataloader = torch.utils.data.DataLoader(val_dataset, batch_size=batch_size, shuffle=True, num_workers=1)
+batch_size = 32
+train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=1, pin_memory=True)
+val_dataloader = torch.utils.data.DataLoader(val_dataset, batch_size=batch_size, shuffle=True, num_workers=1, pin_memory=True)
 dataloaders_dict = {'train': train_dataloader, 'val': val_dataloader}
 
 for prm1 in [0]:
     for prm2 in [0]:
-        net = model.new_Variable_2(num_layer=8, num_filters=16, kernel_sizes=5).to(device)
+        net = model.new_Variable_2(num_layer=8, num_filters=32, kernel_sizes=5).to(device)
         net.apply(model.weight_init) #重みの初期化適用
+        # summary(net, (512,))
 
         optimizer = optim.Adam(net.parameters(), lr=1e-4, weight_decay=1e-6, eps=1e-5)
 
