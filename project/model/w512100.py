@@ -25,25 +25,25 @@ def datePrint(*args, **kwargs):
 
 
 datePrint("loading pickle data")
-input_val0 = pickle.load(open("../data/max_span100_256/input_val0.pkl","rb"))
-target_val0 = pickle.load(open("../data/max_span100_256/target_val0.pkl","rb")) #256のみ
+input_val0 = pickle.load(open("../data/max_span100_512/input_val0.pkl","rb"))
+target_val0 = pickle.load(open("../data/max_span100_512/target_val0.pkl","rb")) #512のみ
 target_val0 = torch.flip(target_val0, dims=[1])
-input_train0 = pickle.load(open("../data/max_span100_256/input_train0.pkl","rb"))
-target_train0 = pickle.load(open("../data/max_span100_256/target_train0.pkl","rb")) #256以下
-target_train0 = torch.flip(target_train0, dims=[1])
-input_val1 = pickle.load(open("../data/max_span100_256/input_val1.pkl","rb"))
-target_val1 = pickle.load(open("../data/max_span100_256/target_val1.pkl","rb")) #256のみ
+input_val1 = pickle.load(open("../data/max_span100_512/input_val1.pkl","rb"))
+target_val1 = pickle.load(open("../data/max_span100_512/target_val1.pkl","rb")) #512のみ
 target_val1 = torch.flip(target_val1, dims=[1])
-input_train1 = pickle.load(open("../data/max_span100_256/input_train1.pkl","rb"))
-target_train1 = pickle.load(open("../data/max_span100_256/target_train1.pkl","rb")) #256以下
-target_train1 = torch.flip(target_train1, dims=[1])
+input_val2 = pickle.load(open("../data/max_span100_512/input_val2.pkl","rb"))
+target_val2 = pickle.load(open("../data/max_span100_512/target_val2.pkl","rb")) #512のみ
+target_val2 = torch.flip(target_val2, dims=[1])
+input_val3 = pickle.load(open("../data/max_span100_512/input_val3.pkl","rb"))
+target_val3 = pickle.load(open("../data/max_span100_512/target_val3.pkl","rb")) #512のみ
+target_val3 = torch.flip(target_val3, dims=[1])
 
-input_all = torch.cat([input_train0, input_val0, input_train1, input_val1], dim=0)
-target_all = torch.cat([target_train0, target_val0, target_train1, target_val1], dim=0)
+input_all = torch.cat([input_val0, input_val1, input_val2, input_val3], dim=0)
+target_all = torch.cat([target_val0, target_val1, target_val2, target_val3], dim=0)
 dataset = model.Dataset(input_all, target_all)
 train_dataset, val_dataset = torch.utils.data.random_split(dataset, [1800000, 200000])
 
-del input_val0, target_val0, input_train0, target_train0, input_val1, target_val1, input_train1, target_train1
+del input_val0, target_val0, input_val1, target_val1, input_val2, target_val2, input_val3, target_val3
 gc.collect()
 
 import math
@@ -62,7 +62,7 @@ for prm1 in [0]:
     for prm2 in [0]:
         net = model.dilation1(num_layer=16, num_filters=128, kernel_sizes=5).to(device)
         net.apply(model.weight_init) #重みの初期化適用
-        summary(net, input_size=([batch_size, 256]))
+        summary(net, input_size=([batch_size, 512]))
 
         optimizer = optim.Adam(net.parameters(), lr=1e-4, weight_decay=1e-6, eps=1e-5)
 
@@ -71,7 +71,7 @@ for prm1 in [0]:
         
         scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda_epoch)
         train_loss_list, val_loss_list, data_all, target_all, output_all = mode.train(device, net, dataloaders_dict, criterion, optimizer, epochs)               
-        torch.save(net.state_dict(), '256w100.pth')
+        torch.save(net.state_dict(), '512w100.pth')
 
         y_true, y_est = np.array(target_all, dtype=object).reshape(-1), np.array(output_all, dtype=object).reshape(-1)
         lims = [-1, 15]
@@ -88,4 +88,4 @@ for prm1 in [0]:
         divider = make_axes_locatable(ax)
         cax = divider.append_axes("right", size="5%", pad=0.1)
         fig.colorbar(cset, cax=cax).ax.set_title("count")
-        plt.savefig(f'st1_{val_loss_list[-1]:.2f}.png')
+        plt.savefig(f'512w100_{val_loss_list[-1]:.2f}.png')

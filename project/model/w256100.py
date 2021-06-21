@@ -28,22 +28,16 @@ datePrint("loading pickle data")
 input_val0 = pickle.load(open("../data/max_span100_256/input_val0.pkl","rb"))
 target_val0 = pickle.load(open("../data/max_span100_256/target_val0.pkl","rb")) #256のみ
 target_val0 = torch.flip(target_val0, dims=[1])
-input_train0 = pickle.load(open("../data/max_span100_256/input_train0.pkl","rb"))
-target_train0 = pickle.load(open("../data/max_span100_256/target_train0.pkl","rb")) #256以下
-target_train0 = torch.flip(target_train0, dims=[1])
 input_val1 = pickle.load(open("../data/max_span100_256/input_val1.pkl","rb"))
 target_val1 = pickle.load(open("../data/max_span100_256/target_val1.pkl","rb")) #256のみ
 target_val1 = torch.flip(target_val1, dims=[1])
-input_train1 = pickle.load(open("../data/max_span100_256/input_train1.pkl","rb"))
-target_train1 = pickle.load(open("../data/max_span100_256/target_train1.pkl","rb")) #256以下
-target_train1 = torch.flip(target_train1, dims=[1])
 
-input_all = torch.cat([input_train0, input_val0, input_train1, input_val1], dim=0)
-target_all = torch.cat([target_train0, target_val0, target_train1, target_val1], dim=0)
+input_all = torch.cat([input_val0, input_val1], dim=0)
+target_all = torch.cat([target_val0, target_val1], dim=0)
 dataset = model.Dataset(input_all, target_all)
-train_dataset, val_dataset = torch.utils.data.random_split(dataset, [1800000, 200000])
+train_dataset, val_dataset = torch.utils.data.random_split(dataset, [900000, 100000])
 
-del input_val0, target_val0, input_train0, target_train0, input_val1, target_val1, input_train1, target_train1
+del input_val0, target_val0, input_val1, target_val1
 gc.collect()
 
 import math
@@ -60,7 +54,7 @@ dataloaders_dict = {'train': train_dataloader, 'val': val_dataloader}
 
 for prm1 in [0]:
     for prm2 in [0]:
-        net = model.dilation1(num_layer=16, num_filters=128, kernel_sizes=5).to(device)
+        net = model.pool2(num_layer=8, num_filters=64, kernel_sizes=5).to(device)
         net.apply(model.weight_init) #重みの初期化適用
         summary(net, input_size=([batch_size, 256]))
 
@@ -88,4 +82,4 @@ for prm1 in [0]:
         divider = make_axes_locatable(ax)
         cax = divider.append_axes("right", size="5%", pad=0.1)
         fig.colorbar(cset, cax=cax).ax.set_title("count")
-        plt.savefig(f'st1_{val_loss_list[-1]:.2f}.png')
+        plt.savefig(f'256w100_{val_loss_list[-1]:.2f}.png')

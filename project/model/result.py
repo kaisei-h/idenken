@@ -78,7 +78,7 @@ def sort_list(loss_list, cor_list):
     return loss_sort, cor_sort
 
 
-def visible_one(target_all, output_all, loss_list, cor_list, idx=None):
+def visible_one(target_all, output_all, data_all, loss_list, cor_list, idx=None):
     if (idx==None):
         ii = np.random.randint(0, len(target_all))
         print('random=',random)

@@ -1,0 +1,267 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+cuda:0
+[2021/06/20 02:58:56] loading pickle data
+==========================================================================================
+Layer (type:depth-idx)                   Output Shape              Param #
+==========================================================================================
+pool2                                    --                        --
+├─Embedding: 1-1                         [32, 256, 5]              25
+├─ModuleList: 1                          --                        --
+│    └─conv1DBatchNorm: 2-1              [32, 64, 256]             --
+│    │    └─Conv1d: 3-1                  [32, 64, 256]             1,600
+│    │    └─BatchNorm1d: 3-2             [32, 64, 256]             128
+│    └─Hardswish: 2-2                    [32, 64, 256]             --
+│    └─conv1DBatchNormRelu: 2-3          [32, 64, 256]             --
+│    │    └─Conv1d: 3-3                  [32, 64, 256]             20,480
+│    │    └─BatchNorm1d: 3-4             [32, 64, 256]             128
+│    │    └─ReLU: 3-5                    [32, 64, 256]             --
+│    └─conv1DBatchNormRelu: 2-4          [32, 64, 256]             --
+│    │    └─Conv1d: 3-6                  [32, 64, 256]             20,480
+│    │    └─BatchNorm1d: 3-7             [32, 64, 256]             128
+│    │    └─ReLU: 3-8                    [32, 64, 256]             --
+│    └─conv1DBatchNormRelu: 2-5          [32, 128, 256]            --
+│    │    └─Conv1d: 3-9                  [32, 128, 256]            40,960
+│    │    └─BatchNorm1d: 3-10            [32, 128, 256]            256
+│    │    └─ReLU: 3-11                   [32, 128, 256]            --
+│    └─MaxPool1d: 2-6                    [32, 128, 128]            --
+│    └─conv1DBatchNormRelu: 2-7          [32, 128, 128]            --
+│    │    └─Conv1d: 3-12                 [32, 128, 128]            81,920
+│    │    └─BatchNorm1d: 3-13            [32, 128, 128]            256
+│    │    └─ReLU: 3-14                   [32, 128, 128]            --
+│    └─conv1DBatchNormRelu: 2-8          [32, 128, 128]            --
+│    │    └─Conv1d: 3-15                 [32, 128, 128]            81,920
+│    │    └─BatchNorm1d: 3-16            [32, 128, 128]            256
+│    │    └─ReLU: 3-17                   [32, 128, 128]            --
+│    └─conv1DBatchNormRelu: 2-9          [32, 192, 128]            --
+│    │    └─Conv1d: 3-18                 [32, 192, 128]            122,880
+│    │    └─BatchNorm1d: 3-19            [32, 192, 128]            384
+│    │    └─ReLU: 3-20                   [32, 192, 128]            --
+│    └─MaxPool1d: 2-10                   [32, 192, 64]             --
+│    └─conv1DBatchNormRelu: 2-11         [32, 192, 64]             --
+│    │    └─Conv1d: 3-21                 [32, 192, 64]             184,320
+│    │    └─BatchNorm1d: 3-22            [32, 192, 64]             384
+│    │    └─ReLU: 3-23                   [32, 192, 64]             --
+│    └─conv1DBatchNormRelu: 2-12         [32, 192, 64]             --
+│    │    └─Conv1d: 3-24                 [32, 192, 64]             184,320
+│    │    └─BatchNorm1d: 3-25            [32, 192, 64]             384
+│    │    └─ReLU: 3-26                   [32, 192, 64]             --
+│    └─conv1DBatchNormRelu: 2-13         [32, 256, 64]             --
+│    │    └─Conv1d: 3-27                 [32, 256, 64]             245,760
+│    │    └─BatchNorm1d: 3-28            [32, 256, 64]             512
+│    │    └─ReLU: 3-29                   [32, 256, 64]             --
+│    └─MaxPool1d: 2-14                   [32, 256, 32]             --
+│    └─conv1DBatchNormRelu: 2-15         [32, 256, 32]             --
+│    │    └─Conv1d: 3-30                 [32, 256, 32]             327,680
+│    │    └─BatchNorm1d: 3-31            [32, 256, 32]             512
+│    │    └─ReLU: 3-32                   [32, 256, 32]             --
+│    └─conv1DBatchNormRelu: 2-16         [32, 256, 32]             --
+│    │    └─Conv1d: 3-33                 [32, 256, 32]             327,680
+│    │    └─BatchNorm1d: 3-34            [32, 256, 32]             512
+│    │    └─ReLU: 3-35                   [32, 256, 32]             --
+│    └─conv1DBatchNormRelu: 2-17         [32, 320, 32]             --
+│    │    └─Conv1d: 3-36                 [32, 320, 32]             409,600
+│    │    └─BatchNorm1d: 3-37            [32, 320, 32]             640
+│    │    └─ReLU: 3-38                   [32, 320, 32]             --
+│    └─MaxPool1d: 2-18                   [32, 320, 16]             --
+│    └─conv1DBatchNormRelu: 2-19         [32, 320, 16]             --
+│    │    └─Conv1d: 3-39                 [32, 320, 16]             512,000
+│    │    └─BatchNorm1d: 3-40            [32, 320, 16]             640
+│    │    └─ReLU: 3-41                   [32, 320, 16]             --
+│    └─conv1DBatchNormRelu: 2-20         [32, 320, 16]             --
+│    │    └─Conv1d: 3-42                 [32, 320, 16]             512,000
+│    │    └─BatchNorm1d: 3-43            [32, 320, 16]             640
+│    │    └─ReLU: 3-44                   [32, 320, 16]             --
+│    └─conv1DBatchNormRelu: 2-21         [32, 384, 16]             --
+│    │    └─Conv1d: 3-45                 [32, 384, 16]             614,400
+│    │    └─BatchNorm1d: 3-46            [32, 384, 16]             768
+│    │    └─ReLU: 3-47                   [32, 384, 16]             --
+│    └─MaxPool1d: 2-22                   [32, 384, 8]              --
+│    └─conv1DBatchNormRelu: 2-23         [32, 384, 8]              --
+│    │    └─Conv1d: 3-48                 [32, 384, 8]              737,280
+│    │    └─BatchNorm1d: 3-49            [32, 384, 8]              768
+│    │    └─ReLU: 3-50                   [32, 384, 8]              --
+│    └─conv1DBatchNormRelu: 2-24         [32, 384, 8]              --
+│    │    └─Conv1d: 3-51                 [32, 384, 8]              737,280
+│    │    └─BatchNorm1d: 3-52            [32, 384, 8]              768
+│    │    └─ReLU: 3-53                   [32, 384, 8]              --
+│    └─conv1DBatchNormRelu: 2-25         [32, 448, 8]              --
+│    │    └─Conv1d: 3-54                 [32, 448, 8]              860,160
+│    │    └─BatchNorm1d: 3-55            [32, 448, 8]              896
+│    │    └─ReLU: 3-56                   [32, 448, 8]              --
+│    └─MaxPool1d: 2-26                   [32, 448, 4]              --
+│    └─conv1DBatchNormRelu: 2-27         [32, 448, 4]              --
+│    │    └─Conv1d: 3-57                 [32, 448, 4]              1,003,520
+│    │    └─BatchNorm1d: 3-58            [32, 448, 4]              896
+│    │    └─ReLU: 3-59                   [32, 448, 4]              --
+│    └─conv1DBatchNormRelu: 2-28         [32, 448, 4]              --
+│    │    └─Conv1d: 3-60                 [32, 448, 4]              1,003,520
+│    │    └─BatchNorm1d: 3-61            [32, 448, 4]              896
+│    │    └─ReLU: 3-62                   [32, 448, 4]              --
+│    └─conv1DBatchNormRelu: 2-29         [32, 512, 4]              --
+│    │    └─Conv1d: 3-63                 [32, 512, 4]              1,146,880
+│    │    └─BatchNorm1d: 3-64            [32, 512, 4]              1,024
+│    │    └─ReLU: 3-65                   [32, 512, 4]              --
+│    └─MaxPool1d: 2-30                   [32, 512, 2]              --
+│    └─Tconv1DBatchNormRelu: 2-31        [32, 448, 4]              --
+│    │    └─ConvTranspose1d: 3-66        [32, 448, 4]              1,146,880
+│    │    └─BatchNorm1d: 3-67            [32, 448, 4]              896
+│    │    └─ReLU: 3-68                   [32, 448, 4]              --
+│    └─conv1DBatchNormRelu: 2-32         [32, 448, 4]              --
+│    │    └─Conv1d: 3-69                 [32, 448, 4]              1,003,520
+│    │    └─BatchNorm1d: 3-70            [32, 448, 4]              896
+│    │    └─ReLU: 3-71                   [32, 448, 4]              --
+│    └─conv1DBatchNormRelu: 2-33         [32, 448, 4]              --
+│    │    └─Conv1d: 3-72                 [32, 448, 4]              1,003,520
+│    │    └─BatchNorm1d: 3-73            [32, 448, 4]              896
+│    │    └─ReLU: 3-74                   [32, 448, 4]              --
+│    └─Tconv1DBatchNormRelu: 2-34        [32, 384, 8]              --
+│    │    └─ConvTranspose1d: 3-75        [32, 384, 8]              860,160
+│    │    └─BatchNorm1d: 3-76            [32, 384, 8]              768
+│    │    └─ReLU: 3-77                   [32, 384, 8]              --
+│    └─conv1DBatchNormRelu: 2-35         [32, 384, 8]              --
+│    │    └─Conv1d: 3-78                 [32, 384, 8]              737,280
+│    │    └─BatchNorm1d: 3-79            [32, 384, 8]              768
+│    │    └─ReLU: 3-80                   [32, 384, 8]              --
+│    └─conv1DBatchNormRelu: 2-36         [32, 384, 8]              --
+│    │    └─Conv1d: 3-81                 [32, 384, 8]              737,280
+│    │    └─BatchNorm1d: 3-82            [32, 384, 8]              768
+│    │    └─ReLU: 3-83                   [32, 384, 8]              --
+│    └─Tconv1DBatchNormRelu: 2-37        [32, 320, 16]             --
+│    │    └─ConvTranspose1d: 3-84        [32, 320, 16]             614,400
+│    │    └─BatchNorm1d: 3-85            [32, 320, 16]             640
+│    │    └─ReLU: 3-86                   [32, 320, 16]             --
+│    └─conv1DBatchNormRelu: 2-38         [32, 320, 16]             --
+│    │    └─Conv1d: 3-87                 [32, 320, 16]             512,000
+│    │    └─BatchNorm1d: 3-88            [32, 320, 16]             640
+│    │    └─ReLU: 3-89                   [32, 320, 16]             --
+│    └─conv1DBatchNormRelu: 2-39         [32, 320, 16]             --
+│    │    └─Conv1d: 3-90                 [32, 320, 16]             512,000
+│    │    └─BatchNorm1d: 3-91            [32, 320, 16]             640
+│    │    └─ReLU: 3-92                   [32, 320, 16]             --
+│    └─Tconv1DBatchNormRelu: 2-40        [32, 256, 32]             --
+│    │    └─ConvTranspose1d: 3-93        [32, 256, 32]             409,600
+│    │    └─BatchNorm1d: 3-94            [32, 256, 32]             512
+│    │    └─ReLU: 3-95                   [32, 256, 32]             --
+│    └─conv1DBatchNormRelu: 2-41         [32, 256, 32]             --
+│    │    └─Conv1d: 3-96                 [32, 256, 32]             327,680
+│    │    └─BatchNorm1d: 3-97            [32, 256, 32]             512
+│    │    └─ReLU: 3-98                   [32, 256, 32]             --
+│    └─conv1DBatchNormRelu: 2-42         [32, 256, 32]             --
+│    │    └─Conv1d: 3-99                 [32, 256, 32]             327,680
+│    │    └─BatchNorm1d: 3-100           [32, 256, 32]             512
+│    │    └─ReLU: 3-101                  [32, 256, 32]             --
+│    └─Tconv1DBatchNormRelu: 2-43        [32, 192, 64]             --
+│    │    └─ConvTranspose1d: 3-102       [32, 192, 64]             245,760
+│    │    └─BatchNorm1d: 3-103           [32, 192, 64]             384
+│    │    └─ReLU: 3-104                  [32, 192, 64]             --
+│    └─conv1DBatchNormRelu: 2-44         [32, 192, 64]             --
+│    │    └─Conv1d: 3-105                [32, 192, 64]             184,320
+│    │    └─BatchNorm1d: 3-106           [32, 192, 64]             384
+│    │    └─ReLU: 3-107                  [32, 192, 64]             --
+│    └─conv1DBatchNormRelu: 2-45         [32, 192, 64]             --
+│    │    └─Conv1d: 3-108                [32, 192, 64]             184,320
+│    │    └─BatchNorm1d: 3-109           [32, 192, 64]             384
+│    │    └─ReLU: 3-110                  [32, 192, 64]             --
+│    └─Tconv1DBatchNormRelu: 2-46        [32, 128, 128]            --
+│    │    └─ConvTranspose1d: 3-111       [32, 128, 128]            122,880
+│    │    └─BatchNorm1d: 3-112           [32, 128, 128]            256
+│    │    └─ReLU: 3-113                  [32, 128, 128]            --
+│    └─conv1DBatchNormRelu: 2-47         [32, 128, 128]            --
+│    │    └─Conv1d: 3-114                [32, 128, 128]            81,920
+│    │    └─BatchNorm1d: 3-115           [32, 128, 128]            256
+│    │    └─ReLU: 3-116                  [32, 128, 128]            --
+│    └─conv1DBatchNormRelu: 2-48         [32, 128, 128]            --
+│    │    └─Conv1d: 3-117                [32, 128, 128]            81,920
+│    │    └─BatchNorm1d: 3-118           [32, 128, 128]            256
+│    │    └─ReLU: 3-119                  [32, 128, 128]            --
+│    └─Tconv1DBatchNormRelu: 2-49        [32, 64, 256]             --
+│    │    └─ConvTranspose1d: 3-120       [32, 64, 256]             40,960
+│    │    └─BatchNorm1d: 3-121           [32, 64, 256]             128
+│    │    └─ReLU: 3-122                  [32, 64, 256]             --
+│    └─conv1DBatchNormRelu: 2-50         [32, 64, 256]             --
+│    │    └─Conv1d: 3-123                [32, 64, 256]             20,480
+│    │    └─BatchNorm1d: 3-124           [32, 64, 256]             128
+│    │    └─ReLU: 3-125                  [32, 64, 256]             --
+│    └─conv1DBatchNormRelu: 2-51         [32, 64, 256]             --
+│    │    └─Conv1d: 3-126                [32, 64, 256]             20,480
+│    │    └─BatchNorm1d: 3-127           [32, 64, 256]             128
+│    │    └─ReLU: 3-128                  [32, 64, 256]             --
+│    └─conv1DBatchNorm: 2-52             [32, 64, 256]             --
+│    │    └─Conv1d: 3-129                [32, 64, 256]             12,288
+│    │    └─BatchNorm1d: 3-130           [32, 64, 256]             128
+│    └─Hardswish: 2-53                   [32, 64, 256]             --
+│    └─conv1DBatchNorm: 2-54             [32, 1, 252]              --
+│    │    └─Conv1d: 3-131                [32, 1, 252]              320
+│    │    └─BatchNorm1d: 3-132           [32, 1, 252]              2
+==========================================================================================
+Total params: 18,386,971
+Trainable params: 18,386,971
+Non-trainable params: 0
+Total mult-adds (G): 12.19
+==========================================================================================
+Input size (MB): 0.03
+Forward/backward pass size (MB): 228.13
+Params size (MB): 73.55
+Estimated Total Size (MB): 301.71
+==========================================================================================
+Epoch 1/20
+train Loss:6.3920 Timer:1296.2088
+val Loss:3.4744 Timer:37.2310
+Epoch 2/20
+train Loss:3.3931 Timer:1293.6878
+val Loss:3.3387 Timer:35.3146
+Epoch 3/20
+train Loss:3.3501 Timer:1255.5275
+val Loss:3.3259 Timer:38.0048
+Epoch 4/20
+train Loss:3.3302 Timer:1251.6267
+val Loss:3.3125 Timer:36.5557
+Epoch 5/20
+train Loss:3.3127 Timer:1258.7768
+val Loss:3.2820 Timer:47.2952
+Epoch 6/20
+train Loss:3.3012 Timer:1306.4753
+val Loss:3.2931 Timer:36.8371
+Epoch 7/20
+train Loss:3.2909 Timer:1299.9835
+val Loss:3.2793 Timer:36.7971
+Epoch 8/20
+train Loss:3.2838 Timer:1307.1597
+val Loss:3.2663 Timer:37.5549
+Epoch 9/20
+train Loss:3.2742 Timer:1272.2080
+val Loss:3.2612 Timer:37.0375
+Epoch 10/20
+train Loss:3.2674 Timer:1290.5285
+val Loss:3.2626 Timer:44.8219
+Epoch 11/20
+train Loss:3.2689 Timer:1267.5229
+val Loss:3.2578 Timer:35.3378
+Epoch 12/20
+train Loss:3.2636 Timer:1303.6823
+val Loss:3.2629 Timer:36.6309
+Epoch 13/20
+train Loss:3.2655 Timer:1268.4490
+val Loss:3.2821 Timer:45.2898
+Epoch 14/20
+train Loss:3.2659 Timer:1273.5720
+val Loss:3.2520 Timer:37.3471
+Epoch 15/20
+train Loss:3.2629 Timer:1284.9343
+val Loss:3.2610 Timer:44.5739
+Epoch 16/20
+train Loss:3.2655 Timer:1271.0044
+val Loss:3.2548 Timer:36.7253
+Epoch 17/20
+train Loss:3.2536 Timer:1304.4717
+val Loss:3.2454 Timer:40.6791
+Epoch 18/20
+train Loss:3.2553 Timer:1310.7532
+val Loss:3.2492 Timer:39.3118
+Epoch 19/20
+train Loss:3.2546 Timer:1256.8403
+val Loss:3.2461 Timer:35.1802
+Epoch 20/20
+train Loss:3.2483 Timer:1275.8846
+val Loss:3.2447 Timer:43.8437
