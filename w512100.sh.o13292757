@@ -1,0 +1,29 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+cuda:0
+[2021/06/24 04:53:19] loading pickle data
+Epoch 1/20
+train Loss:4.1643 Timer:3054.2964
+val Loss:3.2833 Timer:79.4649
+Epoch 2/20
+train Loss:3.2738 Timer:3041.7531
+val Loss:3.2648 Timer:78.1740
+Epoch 3/20
+train Loss:3.2610 Timer:3055.2014
+val Loss:3.2569 Timer:77.9850
+Epoch 4/20
+train Loss:3.2521 Timer:3055.2766
+val Loss:3.2500 Timer:79.8361
+Epoch 5/20
+train Loss:3.2447 Timer:3060.6898
+val Loss:3.2447 Timer:94.4395
+Epoch 6/20
+train Loss:3.2378 Timer:3059.1075
+val Loss:3.2401 Timer:80.6093
+Epoch 7/20
+train Loss:3.2312 Timer:3089.3946
+val Loss:3.2359 Timer:79.9982
+Epoch 8/20
+train Loss:3.2237 Timer:3069.7712
+val Loss:3.2299 Timer:80.4078
+Epoch 9/20

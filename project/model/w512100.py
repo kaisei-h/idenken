@@ -11,7 +11,7 @@ import gc
 import re
 from torchinfo import summary
 # ここから自作
-import model
+import model_re
 import result
 import mode
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -40,7 +40,7 @@ target_val3 = torch.flip(target_val3, dims=[1])
 
 input_all = torch.cat([input_val0, input_val1, input_val2, input_val3], dim=0)
 target_all = torch.cat([target_val0, target_val1, target_val2, target_val3], dim=0)
-dataset = model.Dataset(input_all, target_all)
+dataset = model_re.Dataset(input_all, target_all)
 train_dataset, val_dataset = torch.utils.data.random_split(dataset, [1800000, 200000])
 
 del input_val0, target_val0, input_val1, target_val1, input_val2, target_val2, input_val3, target_val3
@@ -60,9 +60,9 @@ dataloaders_dict = {'train': train_dataloader, 'val': val_dataloader}
 
 for prm1 in [0]:
     for prm2 in [0]:
-        net = model.dilation1(num_layer=16, num_filters=128, kernel_sizes=5).to(device)
-        net.apply(model.weight_init) #重みの初期化適用
-        summary(net, input_size=([batch_size, 512]))
+        net = model_re.dilation4(num_filters=128, kernel_sizes=5).to(device)
+        net.apply(model_re.weight_init) #重みの初期化適用
+        # summary(net, input_size=([batch_size, 512]))
 
         optimizer = optim.Adam(net.parameters(), lr=1e-4, weight_decay=1e-6, eps=1e-5)
 
@@ -71,7 +71,7 @@ for prm1 in [0]:
         
         scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda_epoch)
         train_loss_list, val_loss_list, data_all, target_all, output_all = mode.train(device, net, dataloaders_dict, criterion, optimizer, epochs)               
-        torch.save(net.state_dict(), '512w100.pth')
+        torch.save(net.state_dict(), 'pypo_length.pth')
 
         y_true, y_est = np.array(target_all, dtype=object).reshape(-1), np.array(output_all, dtype=object).reshape(-1)
         lims = [-1, 15]
@@ -88,4 +88,4 @@ for prm1 in [0]:
         divider = make_axes_locatable(ax)
         cax = divider.append_axes("right", size="5%", pad=0.1)
         fig.colorbar(cset, cax=cax).ax.set_title("count")
-        plt.savefig(f'512w100_{val_loss_list[-1]:.2f}.png')
+        plt.savefig(f'pypo_length_{val_loss_list[-1]:.2f}.png')

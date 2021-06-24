@@ -58,12 +58,12 @@ class Fixed(nn.Module):
         return x
 
 class Variable(nn.Module):
-    def __init__(self, emb_dim=8, num_layer=8, num_filters=128, kernel_sizes=7):
+    def __init__(self, emb_dim=5, num_layer=8, num_filters=128, kernel_sizes=7):
         super(Variable, self).__init__()
         self.filter = num_filters
         self.embedding = nn.Embedding(5, emb_dim)
+
         self.convs = nn.ModuleList()
-        self.convs.append(scSE(channels=emb_dim)) 
         for i in range(num_layer):
             if (i==0):
                 self.convs.append(conv1DBatchNormRelu(in_channels=emb_dim, out_channels=num_filters,
@@ -71,7 +71,7 @@ class Variable(nn.Module):
             else:
                 self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters,
                                                       kernel_size=kernel_sizes, padding=kernel_sizes//2))
-        self.convs.append(scSE(channels=num_filters)) 
+        
         self.fc = nn.Conv1d(in_channels=num_filters, out_channels=1, kernel_size=5)
 
     def forward(self, x):
@@ -95,28 +95,20 @@ class dilation1(nn.Module):
         self.convs.append(conv1DBatchNorm(in_channels=emb_dim, out_channels=num_filters,
                          kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
         self.convs.append(nn.Hardswish())
-        # self.convs.append(scSE(channels=num_filters))
+        self.convs.append(scSE(channels=num_filters))
         for i in range(1, num_layer):
             self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
                                                   kernel_size=kernel_sizes, padding=(kernel_sizes//2)*1, stride=1, dilation=1))
             self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
-                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*2, stride=1, dilation=2))
-            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
                                                   kernel_size=kernel_sizes, padding=(kernel_sizes//2)*3, stride=1, dilation=3))
-            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
-                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*4, stride=1, dilation=4))
             self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
                                                   kernel_size=kernel_sizes, padding=(kernel_sizes//2)*5, stride=1, dilation=5))
             self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
-                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*6, stride=1, dilation=6))
-            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
                                                   kernel_size=kernel_sizes, padding=(kernel_sizes//2)*7, stride=1, dilation=7))
-            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
-                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*8, stride=1, dilation=8))
-            # self.convs.append(scSE(channels=num_filters))
 
         self.convs.append(conv1DBatchNorm(in_channels=num_filters, out_channels=num_filters, kernel_size=kernel_sizes, padding=kernel_sizes//2))
         self.convs.append(nn.Hardswish())
+        self.convs.append(scSE(channels=num_filters))
         self.convs.append(conv1DBatchNorm(in_channels=num_filters, out_channels=1, kernel_size=5))        
 
     def forward(self, x):
@@ -141,13 +133,13 @@ class dilation2(nn.Module):
         self.convs.append(nn.Hardswish())
         for i in range(1, num_layer):
             self.convs.append(conv1DBatchNormRelu(in_channels=num_filters*i, out_channels=num_filters*i, 
-                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*7, stride=1, dilation=7))
-            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters*i, out_channels=num_filters*i, 
-                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*5, stride=1, dilation=5))
+                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*1, stride=1, dilation=1))
             self.convs.append(conv1DBatchNormRelu(in_channels=num_filters*i, out_channels=num_filters*i, 
                                                   kernel_size=kernel_sizes, padding=(kernel_sizes//2)*3, stride=1, dilation=3))
+            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters*i, out_channels=num_filters*i, 
+                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*5, stride=1, dilation=5))
             self.convs.append(conv1DBatchNormRelu(in_channels=num_filters*i, out_channels=num_filters*(i+1), 
-                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*1, stride=1, dilation=1))
+                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*7, stride=1, dilation=7))
             self.convs.append(nn.MaxPool1d(2))
 
         self.convs.append(nn.AdaptiveAvgPool1d(1))
@@ -179,9 +171,7 @@ class dilation3(nn.Module):
         self.dil2 = nn.ModuleList()
         self.dil3 = nn.ModuleList()
         self.dil4 = nn.ModuleList()
-        self.dil5 = nn.ModuleList()
-        self.dil6 = nn.ModuleList()
-        self.di_list = [self.dil1, self.dil2, self.dil3, self.dil4, self.dil5, self.dil6]
+        self.di_list = [self.dil1, self.dil2, self.dil3, self.dil4]
 
         for i, convs in enumerate(self.di_list):
             convs.append(conv1DBatchNorm(in_channels=emb_dim, out_channels=num_filters, 
@@ -193,17 +183,31 @@ class dilation3(nn.Module):
                                         kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
             convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
                                         kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
-            convs.append(conv1DBatchNorm(in_channels=num_filters, out_channels=num_filters, 
+            convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
                                         kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
-            convs.append(nn.Hardswish())
+            convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                        kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
+            convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                        kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
+            convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                        kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
+            convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                        kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
+            convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                        kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
 
         self.last = nn.ModuleList()
-        self.last.append(conv1DBatchNorm(in_channels=num_filters*6, out_channels=num_filters, kernel_size=kernel_sizes, padding=kernel_sizes//2))
+        self.last.append(conv1DBatchNorm(in_channels=num_filters*4, out_channels=num_filters*4, kernel_size=kernel_sizes, padding=kernel_sizes//2))
         self.last.append(nn.Hardswish())
-        for i in range(3):
-            self.last.append(conv1DBatchNorm(in_channels=num_filters, out_channels=num_filters, kernel_size=kernel_sizes, padding=kernel_sizes//2))
-            self.last.append(nn.Hardswish())
-        self.last.append(conv1DBatchNorm(in_channels=num_filters, out_channels=1, kernel_size=5))        
+        self.last.append(conv1DBatchNorm(in_channels=num_filters*4, out_channels=num_filters*4, kernel_size=kernel_sizes, padding=kernel_sizes//2))
+        self.last.append(nn.Hardswish())
+        self.last.append(conv1DBatchNorm(in_channels=num_filters*4, out_channels=num_filters*4, kernel_size=kernel_sizes, padding=kernel_sizes//2))
+        self.last.append(nn.Hardswish())
+        self.last.append(conv1DBatchNorm(in_channels=num_filters*4, out_channels=num_filters*4, kernel_size=kernel_sizes, padding=kernel_sizes//2))
+        self.last.append(nn.Hardswish())
+        self.last.append(conv1DBatchNorm(in_channels=num_filters*4, out_channels=num_filters*4, kernel_size=kernel_sizes, padding=kernel_sizes//2))
+        self.last.append(nn.Hardswish())
+        self.last.append(conv1DBatchNorm(in_channels=num_filters*4, out_channels=1, kernel_size=5))        
 
     def forward(self, x):
         x = self.embedding(x.long())
@@ -216,6 +220,77 @@ class dilation3(nn.Module):
                 else:
                     out_list[i] = l(out_list[i])
         x = torch.cat(out_list, dim=1)
+        for l in self.last:
+            x = l(x)
+
+#デコード
+        x = x.view(x.shape[0], -1)
+        return x
+
+class dilation4(nn.Module):
+    def __init__(self, emb_dim=5, num_layer=8, num_filters=32, kernel_sizes=5):
+        super(dilation4, self).__init__()
+        self.filter = num_filters
+        self.embedding = nn.Embedding(5, emb_dim)
+
+        # self.di_list = []
+        # for i in range(6):
+        #     self.di_list.append(nn.ModuleList())
+        self.dil1 = nn.ModuleList()
+        self.dil2 = nn.ModuleList()
+        self.dil3 = nn.ModuleList()
+        self.dil4 = nn.ModuleList()
+        self.di_list = [self.dil1, self.dil2, self.dil3, self.dil4]
+
+        for i, convs in enumerate(self.di_list):
+            convs.append(conv1DBatchNorm(in_channels=emb_dim, out_channels=num_filters, 
+                                        kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
+            convs.append(nn.Hardswish())
+            convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                        kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
+            convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                        kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
+            convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                        kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
+            convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                        kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
+            convs.append(nn.MaxPool1d(2))
+            convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                        kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
+            convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                        kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
+            convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                        kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
+            convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                        kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
+            convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                        kernel_size=kernel_sizes, padding=(kernel_sizes//2)*(i+1), dilation=i+1))
+            convs.append(nn.MaxPool1d(2))
+
+        self.last = nn.ModuleList()
+        self.last.append(conv1DBatchNorm(in_channels=num_filters, out_channels=num_filters*4, kernel_size=kernel_sizes, padding=kernel_sizes//2))
+        self.last.append(nn.Hardswish())
+        self.last.append(conv1DBatchNorm(in_channels=num_filters*4, out_channels=num_filters*4, kernel_size=kernel_sizes, padding=kernel_sizes//2))
+        self.last.append(nn.Hardswish())
+        self.last.append(conv1DBatchNorm(in_channels=num_filters*4, out_channels=num_filters*4, kernel_size=kernel_sizes, padding=kernel_sizes//2))
+        self.last.append(nn.Hardswish())
+        self.last.append(conv1DBatchNorm(in_channels=num_filters*4, out_channels=num_filters*4, kernel_size=kernel_sizes, padding=kernel_sizes//2))
+        self.last.append(nn.Hardswish())
+        self.last.append(conv1DBatchNorm(in_channels=num_filters*4, out_channels=num_filters*4, kernel_size=kernel_sizes, padding=kernel_sizes//2))
+        self.last.append(nn.Hardswish())
+        self.last.append(conv1DBatchNorm(in_channels=num_filters*4, out_channels=1, kernel_size=5))        
+
+    def forward(self, x):
+        x = self.embedding(x.long())
+        x = torch.transpose(x, 1, 2)
+        out_list = []
+        for i, convs in enumerate(self.di_list):
+            for k, l in enumerate(convs):
+                if (k==0):
+                    out_list.append(l(x))
+                else:
+                    out_list[i] = l(out_list[i])
+        x = torch.cat(out_list, dim=2)
         for l in self.last:
             x = l(x)
 
@@ -337,12 +412,7 @@ class pool1(nn.Module):
         self.convs.append(conv1DBatchNorm(in_channels=emb_dim, out_channels=num_filters,
                          kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
         self.convs.append(nn.Hardswish())
-        self.convs.append(scSE(channels=num_filters))
         for i in range(1, num_layer):
-            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters*i, out_channels=num_filters*i, 
-                                                  kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
-            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters*i, out_channels=num_filters*i, 
-                                                  kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
             self.convs.append(conv1DBatchNormRelu(in_channels=num_filters*i, out_channels=num_filters*i, 
                                                   kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
             self.convs.append(conv1DBatchNormRelu(in_channels=num_filters*i, out_channels=num_filters*(i+1), 
@@ -352,7 +422,6 @@ class pool1(nn.Module):
         self.convs.append(nn.AdaptiveAvgPool1d(1))
         self.convs.append(conv1DBatchNorm(in_channels=num_filters*num_layer, out_channels=512, kernel_size=1))
         self.convs.append(nn.Hardswish())
-        self.convs.append(scSE(channels=512))
         self.convs.append(conv1DBatchNorm(in_channels=512, out_channels=508, kernel_size=1))
 
     def forward(self, x):
@@ -378,8 +447,6 @@ class pool2(nn.Module):
         for i in range(1, num_layer):
             self.convs.append(conv1DBatchNormRelu(in_channels=num_filters*i, out_channels=num_filters*i, 
                                                   kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
-            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters*i, out_channels=num_filters*i, 
-                                                  kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
             self.convs.append(conv1DBatchNormRelu(in_channels=num_filters*i, out_channels=num_filters*(i+1), 
                                                   kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
             self.convs.append(nn.MaxPool1d(2))
@@ -387,15 +454,11 @@ class pool2(nn.Module):
         for i in range(num_layer-1, 0, -1):
             self.convs.append(Tconv1DBatchNormRelu(in_channels=num_filters*(i+1), out_channels=num_filters*i, 
                                                   kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=2))
-            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters*i, out_channels=num_filters*i, 
-                                                  kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
-            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters*i, out_channels=num_filters*i, 
-                                                  kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
         
 
-        self.convs.append(conv1DBatchNorm(in_channels=num_filters, out_channels=num_filters, padding=1, kernel_size=3))
+        self.convs.append(conv1DBatchNorm(in_channels=num_filters, out_channels=32, kernel_size=1))
         self.convs.append(nn.Hardswish())
-        self.convs.append(conv1DBatchNorm(in_channels=num_filters, out_channels=1, kernel_size=5))
+        self.convs.append(conv1DBatchNorm(in_channels=32, out_channels=1, kernel_size=5))
 
 
     def forward(self, x):
@@ -521,7 +584,7 @@ class InvertedBottleNeck(nn.Module):
 
 
 class scSE(nn.Module):
-    def __init__(self, channels, reduction=8):
+    def __init__(self, channels, reduction=16):
         super(scSE, self).__init__()
         self.gap = nn.AdaptiveAvgPool1d(1)
         self.fc1 = nn.Linear(channels, channels//reduction, bias=False)

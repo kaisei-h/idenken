@@ -1,7 +1,7 @@
 Warning: no access to tty (Bad file descriptor).
 Thus no job control in this shell.
 cuda:0
-[2021/06/21 03:58:57] loading pickle data
+[2021/06/21 14:53:47] loading pickle data
 ==========================================================================================
 Layer (type:depth-idx)                   Output Shape              Param #
 ==========================================================================================
@@ -526,64 +526,64 @@ Forward/backward pass size (MB): 4228.77
 Params size (MB): 41.10
 Estimated Total Size (MB): 4269.94
 ==========================================================================================
-dilation7,5,3,1 num_layer=32, num_filters=128, kernel_sizes=5
+dilation1,3,7,15 num_layer=32, num_filters=128, kernel_sizes=5
 Epoch 1/20
-train Loss:4.3601 Timer:7702.8124
-val Loss:inf Timer:150.3904
+train Loss:4.3536 Timer:8045.9446
+val Loss:3.4836 Timer:171.8411
 Epoch 2/20
-train Loss:3.4538 Timer:8184.3037
-val Loss:3.4635 Timer:150.4098
+train Loss:3.4813 Timer:8437.6763
+val Loss:3.4830 Timer:156.6162
 Epoch 3/20
-train Loss:3.4375 Timer:8116.4677
-val Loss:3.4502 Timer:152.9236
+train Loss:3.4778 Timer:12698.1695
+val Loss:3.4722 Timer:163.9115
 Epoch 4/20
-train Loss:3.1647 Timer:7761.8209
-val Loss:2.9102 Timer:157.1501
+train Loss:3.4766 Timer:8382.2844
+val Loss:3.4836 Timer:155.7465
 Epoch 5/20
-train Loss:2.8485 Timer:7850.7775
-val Loss:2.7257 Timer:180.4555
+train Loss:3.4812 Timer:8413.9223
+val Loss:3.4835 Timer:168.5965
 Epoch 6/20
-train Loss:2.6626 Timer:7953.0872
-val Loss:2.6248 Timer:156.1640
+train Loss:3.4808 Timer:8399.4918
+val Loss:3.4741 Timer:159.1206
 Epoch 7/20
-train Loss:2.5946 Timer:7875.4409
-val Loss:2.5578 Timer:154.7184
+train Loss:3.4694 Timer:8399.9038
+val Loss:3.4333 Timer:157.8357
 Epoch 8/20
-train Loss:2.5424 Timer:12389.3539
-val Loss:2.5136 Timer:154.6639
+train Loss:3.3475 Timer:8069.0940
+val Loss:3.2910 Timer:153.8841
 Epoch 9/20
-train Loss:2.5041 Timer:7874.3645
-val Loss:2.4959 Timer:164.5612
+train Loss:3.2084 Timer:9389.0362
+val Loss:3.0448 Timer:163.7509
 Epoch 10/20
-train Loss:2.3964 Timer:7867.4308
-val Loss:2.3405 Timer:176.1906
+train Loss:2.9323 Timer:8164.2603
+val Loss:2.8443 Timer:168.4451
 Epoch 11/20
-train Loss:2.2124 Timer:7960.8518
-val Loss:2.1298 Timer:157.9373
+train Loss:2.7128 Timer:7798.5016
+val Loss:2.5897 Timer:160.2472
 Epoch 12/20
-train Loss:2.0436 Timer:7906.2896
-val Loss:1.9874 Timer:160.2978
+train Loss:2.5310 Timer:8275.1797
+val Loss:2.4717 Timer:154.4391
 Epoch 13/20
-train Loss:1.9619 Timer:7890.1342
-val Loss:1.9646 Timer:151.9014
+train Loss:2.3851 Timer:8103.9994
+val Loss:2.2970 Timer:157.9371
 Epoch 14/20
-train Loss:1.8915 Timer:8350.3128
-val Loss:1.8590 Timer:223.3975
+train Loss:2.1692 Timer:8090.5539
+val Loss:2.0665 Timer:155.2477
 Epoch 15/20
-train Loss:1.8324 Timer:9724.5555
-val Loss:1.8092 Timer:167.3382
+train Loss:1.9696 Timer:7932.3670
+val Loss:1.8921 Timer:172.3811
 Epoch 16/20
-train Loss:1.7685 Timer:7872.5988
-val Loss:1.7424 Timer:152.4171
+train Loss:1.8360 Timer:8111.7930
+val Loss:1.7889 Timer:155.2700
 Epoch 17/20
-train Loss:1.7017 Timer:7874.6479
-val Loss:1.6748 Timer:153.8128
+train Loss:1.7445 Timer:8128.4661
+val Loss:1.7040 Timer:154.1292
 Epoch 18/20
-train Loss:1.6555 Timer:7803.6687
-val Loss:1.6515 Timer:150.3283
+train Loss:1.6792 Timer:8097.5969
+val Loss:1.6571 Timer:159.5800
 Epoch 19/20
-train Loss:1.6262 Timer:7922.0034
-val Loss:1.6142 Timer:150.3727
+train Loss:1.6418 Timer:8136.2022
+val Loss:1.6340 Timer:170.1346
 Epoch 20/20
-train Loss:1.6053 Timer:7906.6685
-val Loss:1.5978 Timer:176.6811
+train Loss:1.6173 Timer:8147.0619
+val Loss:1.6238 Timer:168.4462

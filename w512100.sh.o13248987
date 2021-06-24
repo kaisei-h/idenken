@@ -512,3 +512,62 @@ Estimated Total Size (MB): 4134.41
 ==========================================================================================
 dilation1,2,3,4,5,6,7,8 num_layer=16, num_filters=128, kernel_sizes=5
 Epoch 1/20
+train Loss:4.3456 Timer:8200.3117
+val Loss:3.4821 Timer:152.9649
+Epoch 2/20
+train Loss:3.4448 Timer:8383.8719
+val Loss:3.3973 Timer:160.8331
+Epoch 3/20
+train Loss:3.1740 Timer:7916.4427
+val Loss:3.0223 Timer:149.2330
+Epoch 4/20
+train Loss:2.8567 Timer:12228.7398
+val Loss:2.7100 Timer:418.8144
+Epoch 5/20
+train Loss:2.6560 Timer:8023.2078
+val Loss:2.5773 Timer:175.8481
+Epoch 6/20
+train Loss:2.4957 Timer:7647.3348
+val Loss:2.3741 Timer:153.6633
+Epoch 7/20
+train Loss:2.2453 Timer:7751.0179
+val Loss:2.1086 Timer:161.3650
+Epoch 8/20
+train Loss:1.9987 Timer:7677.9934
+val Loss:1.9176 Timer:153.2598
+Epoch 9/20
+train Loss:1.8314 Timer:7593.2383
+val Loss:1.7731 Timer:157.3695
+Epoch 10/20
+train Loss:1.7305 Timer:7769.4930
+val Loss:1.6949 Timer:365.7414
+Epoch 11/20
+train Loss:1.6716 Timer:9079.4408
+val Loss:1.6614 Timer:235.4775
+Epoch 12/20
+train Loss:1.6374 Timer:7915.2737
+val Loss:1.6328 Timer:154.8810
+Epoch 13/20
+train Loss:1.6139 Timer:7618.7931
+val Loss:1.6271 Timer:157.8348
+Epoch 14/20
+train Loss:1.5960 Timer:7670.4011
+val Loss:1.5961 Timer:157.9767
+Epoch 15/20
+train Loss:1.5819 Timer:7661.8762
+val Loss:1.5857 Timer:169.8344
+Epoch 16/20
+train Loss:1.5708 Timer:7799.3273
+val Loss:1.5904 Timer:148.3217
+Epoch 17/20
+train Loss:1.5619 Timer:7755.2919
+val Loss:1.5665 Timer:155.4240
+Epoch 18/20
+train Loss:1.5542 Timer:7814.9420
+val Loss:1.5607 Timer:156.3358
+Epoch 19/20
+train Loss:1.5475 Timer:7850.0654
+val Loss:1.5576 Timer:147.8222
+Epoch 20/20
+train Loss:1.5416 Timer:8070.6408
+val Loss:1.5597 Timer:185.2240
