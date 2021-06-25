@@ -1,0 +1,156 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+[2021/06/24 16:10:41] loading pickle data
+----------------------------------------------------------------
+        Layer (type)               Output Shape         Param #
+================================================================
+         Embedding-1               [-1, 512, 5]              25
+            Conv1d-2              [-1, 64, 512]           1,600
+       BatchNorm1d-3              [-1, 64, 512]             128
+              ReLU-4              [-1, 64, 512]               0
+conv1DBatchNormRelu-5              [-1, 64, 512]               0
+ AdaptiveAvgPool1d-6                [-1, 64, 1]               0
+            Linear-7                    [-1, 8]             512
+            Linear-8                   [-1, 64]             512
+           Sigmoid-9                   [-1, 64]               0
+           Conv1d-10               [-1, 1, 512]              65
+          Sigmoid-11               [-1, 1, 512]               0
+             scSE-12              [-1, 64, 512]               0
+           Conv1d-13              [-1, 64, 512]          20,480
+      BatchNorm1d-14              [-1, 64, 512]             128
+             ReLU-15              [-1, 64, 512]               0
+conv1DBatchNormRelu-16              [-1, 64, 512]               0
+           Conv1d-17              [-1, 64, 512]          20,480
+      BatchNorm1d-18              [-1, 64, 512]             128
+             ReLU-19              [-1, 64, 512]               0
+conv1DBatchNormRelu-20              [-1, 64, 512]               0
+           Conv1d-21              [-1, 64, 512]          20,480
+      BatchNorm1d-22              [-1, 64, 512]             128
+             ReLU-23              [-1, 64, 512]               0
+conv1DBatchNormRelu-24              [-1, 64, 512]               0
+           Conv1d-25              [-1, 64, 512]          20,480
+      BatchNorm1d-26              [-1, 64, 512]             128
+             ReLU-27              [-1, 64, 512]               0
+conv1DBatchNormRelu-28              [-1, 64, 512]               0
+           Conv1d-29              [-1, 64, 512]          20,480
+      BatchNorm1d-30              [-1, 64, 512]             128
+             ReLU-31              [-1, 64, 512]               0
+conv1DBatchNormRelu-32              [-1, 64, 512]               0
+           Conv1d-33              [-1, 64, 512]          20,480
+      BatchNorm1d-34              [-1, 64, 512]             128
+             ReLU-35              [-1, 64, 512]               0
+conv1DBatchNormRelu-36              [-1, 64, 512]               0
+           Conv1d-37              [-1, 64, 512]          20,480
+      BatchNorm1d-38              [-1, 64, 512]             128
+             ReLU-39              [-1, 64, 512]               0
+conv1DBatchNormRelu-40              [-1, 64, 512]               0
+           Conv1d-41              [-1, 64, 512]          20,480
+      BatchNorm1d-42              [-1, 64, 512]             128
+             ReLU-43              [-1, 64, 512]               0
+conv1DBatchNormRelu-44              [-1, 64, 512]               0
+           Conv1d-45              [-1, 64, 512]          20,480
+      BatchNorm1d-46              [-1, 64, 512]             128
+             ReLU-47              [-1, 64, 512]               0
+conv1DBatchNormRelu-48              [-1, 64, 512]               0
+           Conv1d-49              [-1, 64, 512]          20,480
+      BatchNorm1d-50              [-1, 64, 512]             128
+             ReLU-51              [-1, 64, 512]               0
+conv1DBatchNormRelu-52              [-1, 64, 512]               0
+           Conv1d-53              [-1, 64, 512]          20,480
+      BatchNorm1d-54              [-1, 64, 512]             128
+             ReLU-55              [-1, 64, 512]               0
+conv1DBatchNormRelu-56              [-1, 64, 512]               0
+           Conv1d-57              [-1, 64, 512]          20,480
+      BatchNorm1d-58              [-1, 64, 512]             128
+             ReLU-59              [-1, 64, 512]               0
+conv1DBatchNormRelu-60              [-1, 64, 512]               0
+           Conv1d-61              [-1, 64, 512]          20,480
+      BatchNorm1d-62              [-1, 64, 512]             128
+             ReLU-63              [-1, 64, 512]               0
+conv1DBatchNormRelu-64              [-1, 64, 512]               0
+           Conv1d-65              [-1, 64, 512]          20,480
+      BatchNorm1d-66              [-1, 64, 512]             128
+             ReLU-67              [-1, 64, 512]               0
+conv1DBatchNormRelu-68              [-1, 64, 512]               0
+           Conv1d-69              [-1, 64, 512]          20,480
+      BatchNorm1d-70              [-1, 64, 512]             128
+             ReLU-71              [-1, 64, 512]               0
+conv1DBatchNormRelu-72              [-1, 64, 512]               0
+AdaptiveAvgPool1d-73                [-1, 64, 1]               0
+           Linear-74                    [-1, 8]             512
+           Linear-75                   [-1, 64]             512
+          Sigmoid-76                   [-1, 64]               0
+           Conv1d-77               [-1, 1, 512]              65
+          Sigmoid-78               [-1, 1, 512]               0
+             scSE-79              [-1, 64, 512]               0
+           Conv1d-80               [-1, 1, 508]             321
+================================================================
+Total params: 313,372
+Trainable params: 313,372
+Non-trainable params: 0
+----------------------------------------------------------------
+Input size (MB): 0.00
+Forward/backward pass size (MB): 16.54
+Params size (MB): 1.20
+Estimated Total Size (MB): 17.74
+----------------------------------------------------------------
+Epoch 1/20
+train Loss:2.5958 Timer:505.8437
+val Loss:2.4449 Timer:14.0932
+Epoch 2/20
+train Loss:2.3584 Timer:531.8586
+val Loss:2.2820 Timer:14.5283
+Epoch 3/20
+train Loss:2.2211 Timer:525.1639
+val Loss:2.1729 Timer:14.5508
+Epoch 4/20
+train Loss:2.1327 Timer:503.1202
+val Loss:2.1017 Timer:14.0169
+Epoch 5/20
+train Loss:2.0756 Timer:508.9961
+val Loss:2.0583 Timer:20.9959
+Epoch 6/20
+train Loss:2.0348 Timer:533.9838
+val Loss:2.0196 Timer:14.2753
+Epoch 7/20
+train Loss:2.0035 Timer:544.1705
+val Loss:1.9970 Timer:14.3317
+Epoch 8/20
+train Loss:1.9781 Timer:544.3994
+val Loss:1.9747 Timer:14.8026
+Epoch 9/20
+train Loss:1.9569 Timer:536.6220
+val Loss:1.9490 Timer:14.2379
+Epoch 10/20
+train Loss:1.9392 Timer:538.5284
+val Loss:1.9358 Timer:21.3388
+Epoch 11/20
+train Loss:1.9237 Timer:525.6531
+val Loss:1.9185 Timer:16.3701
+Epoch 12/20
+train Loss:1.9104 Timer:509.5794
+val Loss:1.9081 Timer:14.3399
+Epoch 13/20
+train Loss:1.8989 Timer:520.1897
+val Loss:1.8961 Timer:15.3763
+Epoch 14/20
+train Loss:1.8891 Timer:508.1590
+val Loss:1.8873 Timer:13.8776
+Epoch 15/20
+train Loss:1.8805 Timer:511.8288
+val Loss:1.8798 Timer:22.3370
+Epoch 16/20
+train Loss:1.8730 Timer:519.3326
+val Loss:1.8756 Timer:14.1863
+Epoch 17/20
+train Loss:1.8661 Timer:526.9343
+val Loss:1.8740 Timer:14.5475
+Epoch 18/20
+train Loss:1.8599 Timer:523.9674
+val Loss:1.8663 Timer:14.3907
+Epoch 19/20
+train Loss:1.8542 Timer:513.8126
+val Loss:1.8574 Timer:14.4798
+Epoch 20/20
+train Loss:1.8490 Timer:514.3419
+val Loss:1.8633 Timer:21.0446

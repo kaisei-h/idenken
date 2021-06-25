@@ -1,0 +1,142 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+[2021/06/24 22:25:08] loading pickle data
+----------------------------------------------------------------
+        Layer (type)               Output Shape         Param #
+================================================================
+         Embedding-1               [-1, 512, 5]              25
+            Conv1d-2              [-1, 64, 512]           1,600
+       BatchNorm1d-3              [-1, 64, 512]             128
+   conv1DBatchNorm-4              [-1, 64, 512]               0
+         Hardswish-5              [-1, 64, 512]               0
+            Conv1d-6              [-1, 64, 512]          20,480
+       BatchNorm1d-7              [-1, 64, 512]             128
+   conv1DBatchNorm-8              [-1, 64, 512]               0
+         Hardswish-9              [-1, 64, 512]               0
+           Conv1d-10              [-1, 64, 512]          20,480
+      BatchNorm1d-11              [-1, 64, 512]             128
+  conv1DBatchNorm-12              [-1, 64, 512]               0
+        Hardswish-13              [-1, 64, 512]               0
+           Conv1d-14              [-1, 64, 512]          20,480
+      BatchNorm1d-15              [-1, 64, 512]             128
+  conv1DBatchNorm-16              [-1, 64, 512]               0
+        Hardswish-17              [-1, 64, 512]               0
+           Conv1d-18              [-1, 64, 512]          20,480
+      BatchNorm1d-19              [-1, 64, 512]             128
+  conv1DBatchNorm-20              [-1, 64, 512]               0
+        Hardswish-21              [-1, 64, 512]               0
+           Conv1d-22              [-1, 64, 512]          20,480
+      BatchNorm1d-23              [-1, 64, 512]             128
+  conv1DBatchNorm-24              [-1, 64, 512]               0
+        Hardswish-25              [-1, 64, 512]               0
+           Conv1d-26              [-1, 64, 512]          20,480
+      BatchNorm1d-27              [-1, 64, 512]             128
+  conv1DBatchNorm-28              [-1, 64, 512]               0
+        Hardswish-29              [-1, 64, 512]               0
+           Conv1d-30              [-1, 64, 512]          20,480
+      BatchNorm1d-31              [-1, 64, 512]             128
+  conv1DBatchNorm-32              [-1, 64, 512]               0
+        Hardswish-33              [-1, 64, 512]               0
+           Conv1d-34              [-1, 64, 512]          20,480
+      BatchNorm1d-35              [-1, 64, 512]             128
+  conv1DBatchNorm-36              [-1, 64, 512]               0
+        Hardswish-37              [-1, 64, 512]               0
+           Conv1d-38              [-1, 64, 512]          20,480
+      BatchNorm1d-39              [-1, 64, 512]             128
+  conv1DBatchNorm-40              [-1, 64, 512]               0
+        Hardswish-41              [-1, 64, 512]               0
+           Conv1d-42              [-1, 64, 512]          20,480
+      BatchNorm1d-43              [-1, 64, 512]             128
+  conv1DBatchNorm-44              [-1, 64, 512]               0
+        Hardswish-45              [-1, 64, 512]               0
+           Conv1d-46              [-1, 64, 512]          20,480
+      BatchNorm1d-47              [-1, 64, 512]             128
+  conv1DBatchNorm-48              [-1, 64, 512]               0
+        Hardswish-49              [-1, 64, 512]               0
+           Conv1d-50              [-1, 64, 512]          20,480
+      BatchNorm1d-51              [-1, 64, 512]             128
+  conv1DBatchNorm-52              [-1, 64, 512]               0
+        Hardswish-53              [-1, 64, 512]               0
+           Conv1d-54              [-1, 64, 512]          20,480
+      BatchNorm1d-55              [-1, 64, 512]             128
+  conv1DBatchNorm-56              [-1, 64, 512]               0
+        Hardswish-57              [-1, 64, 512]               0
+           Conv1d-58              [-1, 64, 512]          20,480
+      BatchNorm1d-59              [-1, 64, 512]             128
+  conv1DBatchNorm-60              [-1, 64, 512]               0
+        Hardswish-61              [-1, 64, 512]               0
+           Conv1d-62              [-1, 64, 512]          20,480
+      BatchNorm1d-63              [-1, 64, 512]             128
+  conv1DBatchNorm-64              [-1, 64, 512]               0
+        Hardswish-65              [-1, 64, 512]               0
+           Conv1d-66               [-1, 1, 508]             321
+================================================================
+Total params: 311,194
+Trainable params: 311,194
+Non-trainable params: 0
+----------------------------------------------------------------
+Input size (MB): 0.00
+Forward/backward pass size (MB): 16.02
+Params size (MB): 1.19
+Estimated Total Size (MB): 17.21
+----------------------------------------------------------------
+Epoch 1/20
+train Loss:2.5622 Timer:434.4471
+val Loss:2.3950 Timer:10.8064
+Epoch 2/20
+train Loss:2.3152 Timer:435.1875
+val Loss:2.2496 Timer:10.9661
+Epoch 3/20
+train Loss:2.2015 Timer:435.6356
+val Loss:2.1616 Timer:10.7496
+Epoch 4/20
+train Loss:2.1313 Timer:429.5191
+val Loss:2.1042 Timer:10.4798
+Epoch 5/20
+train Loss:2.0841 Timer:428.6143
+val Loss:2.0704 Timer:17.7484
+Epoch 6/20
+train Loss:2.0493 Timer:435.0540
+val Loss:2.0362 Timer:10.6939
+Epoch 7/20
+train Loss:2.0223 Timer:440.2906
+val Loss:2.0117 Timer:10.5696
+Epoch 8/20
+train Loss:2.0002 Timer:431.5131
+val Loss:1.9916 Timer:11.1875
+Epoch 9/20
+train Loss:1.9819 Timer:437.4643
+val Loss:1.9717 Timer:10.6371
+Epoch 10/20
+train Loss:1.9664 Timer:427.3087
+val Loss:1.9596 Timer:17.7569
+Epoch 11/20
+train Loss:1.9534 Timer:435.9877
+val Loss:1.9490 Timer:11.3778
+Epoch 12/20
+train Loss:1.9421 Timer:433.9443
+val Loss:1.9380 Timer:11.0257
+Epoch 13/20
+train Loss:1.9326 Timer:443.6307
+val Loss:1.9290 Timer:13.3150
+Epoch 14/20
+train Loss:1.9241 Timer:447.4187
+val Loss:1.9195 Timer:11.1890
+Epoch 15/20
+train Loss:1.9164 Timer:432.0606
+val Loss:1.9131 Timer:19.2911
+Epoch 16/20
+train Loss:1.9096 Timer:434.2862
+val Loss:1.9082 Timer:12.2411
+Epoch 17/20
+train Loss:1.9034 Timer:439.9097
+val Loss:1.9021 Timer:12.2851
+Epoch 18/20
+train Loss:1.8978 Timer:441.5226
+val Loss:1.8994 Timer:10.9685
+Epoch 19/20
+train Loss:1.8926 Timer:436.6220
+val Loss:1.8920 Timer:10.6321
+Epoch 20/20
+train Loss:1.8879 Timer:441.1745
+val Loss:1.8862 Timer:18.0762

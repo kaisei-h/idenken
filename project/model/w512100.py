@@ -11,7 +11,7 @@ import gc
 import re
 from torchinfo import summary
 # ここから自作
-import model_re
+import model
 import result
 import mode
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -40,7 +40,7 @@ target_val3 = torch.flip(target_val3, dims=[1])
 
 input_all = torch.cat([input_val0, input_val1, input_val2, input_val3], dim=0)
 target_all = torch.cat([target_val0, target_val1, target_val2, target_val3], dim=0)
-dataset = model_re.Dataset(input_all, target_all)
+dataset = model.Dataset(input_all, target_all)
 train_dataset, val_dataset = torch.utils.data.random_split(dataset, [1800000, 200000])
 
 del input_val0, target_val0, input_val1, target_val1, input_val2, target_val2, input_val3, target_val3
@@ -60,8 +60,8 @@ dataloaders_dict = {'train': train_dataloader, 'val': val_dataloader}
 
 for prm1 in [0]:
     for prm2 in [0]:
-        net = model_re.dilation4(num_filters=128, kernel_sizes=5).to(device)
-        net.apply(model_re.weight_init) #重みの初期化適用
+        net = model.dilation4(num_filters=128, kernel_sizes=5).to(device)
+        net.apply(model.weight_init) #重みの初期化適用
         # summary(net, input_size=([batch_size, 512]))
 
         optimizer = optim.Adam(net.parameters(), lr=1e-4, weight_decay=1e-6, eps=1e-5)

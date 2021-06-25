@@ -25,12 +25,12 @@ def datePrint(*args, **kwargs):
 
 
 datePrint("loading pickle data")
-input_val0 = pickle.load(open("../data/acc_len5_random512/input_train.pkl","rb"))
-target_val0 = pickle.load(open("../data/acc_len5_random512/target_train.pkl","rb")) #512のみ
+# input_train0 = pickle.load(open("../data/acc_len5_random512/input_train.pkl","rb"))
+# target_train0 = pickle.load(open("../data/acc_len5_random512/target_train.pkl","rb")) #512以下
+# target_trian0 = torch.flip(target_train0, dims=[1])
+input_val0 = pickle.load(open("../data/acc_len5_random512/input_train_2.pkl","rb"))
+target_val0 = pickle.load(open("../data/acc_len5_random512/target_train_2.pkl","rb")) #512のみ
 target_val0 = torch.flip(target_val0, dims=[1])
-# input_train0 = pickle.load(open("../data/acc_len5_random512/input_train_2.pkl","rb"))
-# target_train0 = pickle.load(open("../data/acc_len5_random512/target_train_2.pkl","rb")) #512以下
-# target_train0 = torch.flip(target_train0, dims=[1])
 input_val1 = pickle.load(open("../data/acc_len5_random512/input_train_3.pkl","rb"))
 target_val1 = pickle.load(open("../data/acc_len5_random512/target_train_3.pkl","rb")) #512のみ
 target_val1 = torch.flip(target_val1, dims=[1])
@@ -71,7 +71,7 @@ for prm1 in [0]:
         
         scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda_epoch)
         train_loss_list, val_loss_list, data_all, target_all, output_all = mode.train(device, net, dataloaders_dict, criterion, optimizer, epochs)               
-        torch.save(net.state_dict(), 'w20.pth')
+        torch.save(net.state_dict(), 'w20only.pth')
 
         y_true, y_est = np.array(target_all, dtype=object).reshape(-1), np.array(output_all, dtype=object).reshape(-1)
         lims = [-1, 15]

@@ -27,3 +27,38 @@ Epoch 8/20
 train Loss:3.2237 Timer:3069.7712
 val Loss:3.2299 Timer:80.4078
 Epoch 9/20
+train Loss:3.2155 Timer:3084.4598
+val Loss:3.2271 Timer:86.4729
+Epoch 10/20
+train Loss:3.2085 Timer:3271.1816
+val Loss:3.2236 Timer:103.6583
+Epoch 11/20
+train Loss:3.2012 Timer:3222.0690
+val Loss:3.2218 Timer:84.6735
+Epoch 12/20
+train Loss:3.1934 Timer:3009.4614
+val Loss:3.2218 Timer:78.7006
+Epoch 13/20
+train Loss:3.1848 Timer:3031.5108
+val Loss:3.2203 Timer:80.5607
+Epoch 14/20
+train Loss:3.1751 Timer:3089.6973
+val Loss:3.2219 Timer:86.9186
+Epoch 15/20
+train Loss:3.1641 Timer:3088.9154
+val Loss:3.2186 Timer:110.6800
+Epoch 16/20
+train Loss:3.1517 Timer:3195.6055
+val Loss:3.2188 Timer:84.9723
+Epoch 17/20
+train Loss:3.1380 Timer:3112.1801
+val Loss:3.2224 Timer:80.3358
+Epoch 18/20
+train Loss:3.1231 Timer:3170.1035
+val Loss:3.2235 Timer:86.1346
+Epoch 19/20
+train Loss:3.1077 Timer:3178.1346
+val Loss:3.2223 Timer:85.2396
+Epoch 20/20
+train Loss:3.0922 Timer:3152.3998
+val Loss:3.2175 Timer:101.0313

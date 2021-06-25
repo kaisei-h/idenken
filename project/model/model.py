@@ -66,12 +66,16 @@ class Variable(nn.Module):
         self.convs = nn.ModuleList()
         for i in range(num_layer):
             if (i==0):
-                self.convs.append(conv1DBatchNormRelu(in_channels=emb_dim, out_channels=num_filters,
+                self.convs.append(conv1DBatchNorm(in_channels=emb_dim, out_channels=num_filters,
                                                       kernel_size=kernel_sizes, padding=kernel_sizes//2))
+                self.convs.append(nn.Hardswish())
+                # self.convs.append(scSE(channels=num_filters))
             else:
-                self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters,
+                self.convs.append(conv1DBatchNorm(in_channels=num_filters, out_channels=num_filters,
                                                       kernel_size=kernel_sizes, padding=kernel_sizes//2))
+                self.convs.append(nn.Hardswish())
         
+        # self.convs.append(scSE(channels=num_filters))
         self.fc = nn.Conv1d(in_channels=num_filters, out_channels=1, kernel_size=5)
 
     def forward(self, x):
@@ -95,7 +99,7 @@ class dilation1(nn.Module):
         self.convs.append(conv1DBatchNorm(in_channels=emb_dim, out_channels=num_filters,
                          kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
         self.convs.append(nn.Hardswish())
-        self.convs.append(scSE(channels=num_filters))
+        # self.convs.append(scSE(channels=num_filters))
         for i in range(1, num_layer):
             self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
                                                   kernel_size=kernel_sizes, padding=(kernel_sizes//2)*1, stride=1, dilation=1))
@@ -108,7 +112,7 @@ class dilation1(nn.Module):
 
         self.convs.append(conv1DBatchNorm(in_channels=num_filters, out_channels=num_filters, kernel_size=kernel_sizes, padding=kernel_sizes//2))
         self.convs.append(nn.Hardswish())
-        self.convs.append(scSE(channels=num_filters))
+        # self.convs.append(scSE(channels=num_filters))
         self.convs.append(conv1DBatchNorm(in_channels=num_filters, out_channels=1, kernel_size=5))        
 
     def forward(self, x):
@@ -584,7 +588,7 @@ class InvertedBottleNeck(nn.Module):
 
 
 class scSE(nn.Module):
-    def __init__(self, channels, reduction=16):
+    def __init__(self, channels, reduction=8):
         super(scSE, self).__init__()
         self.gap = nn.AdaptiveAvgPool1d(1)
         self.fc1 = nn.Linear(channels, channels//reduction, bias=False)
@@ -592,13 +596,15 @@ class scSE(nn.Module):
         
         self.conv = nn.Conv1d(channels, 1, kernel_size=1)
 
+        self.sig = nn.Sigmoid()
+
     def forward(self, x):
         batch, channel, _ = x.size()
         c = self.gap(x).view(batch, channel)
-        c = F.sigmoid(self.fc2(F.relu(self.fc1(c)))).view(batch, channel, 1)
+        c = self.sig(self.fc2(F.relu(self.fc1(c)))).view(batch, channel, 1)
         c = x * c
         
-        s = F.sigmoid(self.conv(x))
+        s = self.sig(self.conv(x))
         s = x * s
         return c + s
 
