@@ -1,0 +1,285 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+[2021/07/06 13:25:52] loading pickle data
+[8000000, 500000]
+----------------------------------------------------------------
+        Layer (type)               Output Shape         Param #
+================================================================
+         Embedding-1               [-1, 512, 5]              25
+            Conv1d-2             [-1, 128, 512]           3,200
+       BatchNorm1d-3             [-1, 128, 512]             256
+   conv1DBatchNorm-4             [-1, 128, 512]               0
+         Hardswish-5             [-1, 128, 512]               0
+            Conv1d-6             [-1, 128, 512]          81,920
+       BatchNorm1d-7             [-1, 128, 512]             256
+              ReLU-8             [-1, 128, 512]               0
+conv1DBatchNormRelu-9             [-1, 128, 512]               0
+           Conv1d-10             [-1, 128, 512]          81,920
+      BatchNorm1d-11             [-1, 128, 512]             256
+             ReLU-12             [-1, 128, 512]               0
+conv1DBatchNormRelu-13             [-1, 128, 512]               0
+           Conv1d-14             [-1, 128, 512]          81,920
+      BatchNorm1d-15             [-1, 128, 512]             256
+             ReLU-16             [-1, 128, 512]               0
+conv1DBatchNormRelu-17             [-1, 128, 512]               0
+           Conv1d-18             [-1, 128, 512]          81,920
+      BatchNorm1d-19             [-1, 128, 512]             256
+             ReLU-20             [-1, 128, 512]               0
+conv1DBatchNormRelu-21             [-1, 128, 512]               0
+           Conv1d-22             [-1, 128, 512]          81,920
+      BatchNorm1d-23             [-1, 128, 512]             256
+             ReLU-24             [-1, 128, 512]               0
+conv1DBatchNormRelu-25             [-1, 128, 512]               0
+           Conv1d-26             [-1, 128, 512]          81,920
+      BatchNorm1d-27             [-1, 128, 512]             256
+             ReLU-28             [-1, 128, 512]               0
+conv1DBatchNormRelu-29             [-1, 128, 512]               0
+           Conv1d-30             [-1, 128, 512]          81,920
+      BatchNorm1d-31             [-1, 128, 512]             256
+             ReLU-32             [-1, 128, 512]               0
+conv1DBatchNormRelu-33             [-1, 128, 512]               0
+           Conv1d-34             [-1, 128, 512]          81,920
+      BatchNorm1d-35             [-1, 128, 512]             256
+             ReLU-36             [-1, 128, 512]               0
+conv1DBatchNormRelu-37             [-1, 128, 512]               0
+           Conv1d-38             [-1, 128, 512]          81,920
+      BatchNorm1d-39             [-1, 128, 512]             256
+             ReLU-40             [-1, 128, 512]               0
+conv1DBatchNormRelu-41             [-1, 128, 512]               0
+           Conv1d-42             [-1, 128, 512]          81,920
+      BatchNorm1d-43             [-1, 128, 512]             256
+             ReLU-44             [-1, 128, 512]               0
+conv1DBatchNormRelu-45             [-1, 128, 512]               0
+           Conv1d-46             [-1, 128, 512]          81,920
+      BatchNorm1d-47             [-1, 128, 512]             256
+             ReLU-48             [-1, 128, 512]               0
+conv1DBatchNormRelu-49             [-1, 128, 512]               0
+           Conv1d-50             [-1, 128, 512]          81,920
+      BatchNorm1d-51             [-1, 128, 512]             256
+             ReLU-52             [-1, 128, 512]               0
+conv1DBatchNormRelu-53             [-1, 128, 512]               0
+           Conv1d-54             [-1, 128, 512]          81,920
+      BatchNorm1d-55             [-1, 128, 512]             256
+             ReLU-56             [-1, 128, 512]               0
+conv1DBatchNormRelu-57             [-1, 128, 512]               0
+           Conv1d-58             [-1, 128, 512]          81,920
+      BatchNorm1d-59             [-1, 128, 512]             256
+             ReLU-60             [-1, 128, 512]               0
+conv1DBatchNormRelu-61             [-1, 128, 512]               0
+           Conv1d-62             [-1, 128, 512]          81,920
+      BatchNorm1d-63             [-1, 128, 512]             256
+             ReLU-64             [-1, 128, 512]               0
+conv1DBatchNormRelu-65             [-1, 128, 512]               0
+           Conv1d-66             [-1, 128, 512]          81,920
+      BatchNorm1d-67             [-1, 128, 512]             256
+             ReLU-68             [-1, 128, 512]               0
+conv1DBatchNormRelu-69             [-1, 128, 512]               0
+           Conv1d-70             [-1, 128, 512]          81,920
+      BatchNorm1d-71             [-1, 128, 512]             256
+             ReLU-72             [-1, 128, 512]               0
+conv1DBatchNormRelu-73             [-1, 128, 512]               0
+           Conv1d-74             [-1, 128, 512]          81,920
+      BatchNorm1d-75             [-1, 128, 512]             256
+             ReLU-76             [-1, 128, 512]               0
+conv1DBatchNormRelu-77             [-1, 128, 512]               0
+           Conv1d-78             [-1, 128, 512]          81,920
+      BatchNorm1d-79             [-1, 128, 512]             256
+             ReLU-80             [-1, 128, 512]               0
+conv1DBatchNormRelu-81             [-1, 128, 512]               0
+           Conv1d-82             [-1, 128, 512]          81,920
+      BatchNorm1d-83             [-1, 128, 512]             256
+             ReLU-84             [-1, 128, 512]               0
+conv1DBatchNormRelu-85             [-1, 128, 512]               0
+           Conv1d-86             [-1, 128, 512]          81,920
+      BatchNorm1d-87             [-1, 128, 512]             256
+             ReLU-88             [-1, 128, 512]               0
+conv1DBatchNormRelu-89             [-1, 128, 512]               0
+           Conv1d-90             [-1, 128, 512]          81,920
+      BatchNorm1d-91             [-1, 128, 512]             256
+             ReLU-92             [-1, 128, 512]               0
+conv1DBatchNormRelu-93             [-1, 128, 512]               0
+           Conv1d-94             [-1, 128, 512]          81,920
+      BatchNorm1d-95             [-1, 128, 512]             256
+             ReLU-96             [-1, 128, 512]               0
+conv1DBatchNormRelu-97             [-1, 128, 512]               0
+           Conv1d-98             [-1, 128, 512]          81,920
+      BatchNorm1d-99             [-1, 128, 512]             256
+            ReLU-100             [-1, 128, 512]               0
+conv1DBatchNormRelu-101             [-1, 128, 512]               0
+          Conv1d-102             [-1, 128, 512]          81,920
+     BatchNorm1d-103             [-1, 128, 512]             256
+            ReLU-104             [-1, 128, 512]               0
+conv1DBatchNormRelu-105             [-1, 128, 512]               0
+          Conv1d-106             [-1, 128, 512]          81,920
+     BatchNorm1d-107             [-1, 128, 512]             256
+            ReLU-108             [-1, 128, 512]               0
+conv1DBatchNormRelu-109             [-1, 128, 512]               0
+          Conv1d-110             [-1, 128, 512]          81,920
+     BatchNorm1d-111             [-1, 128, 512]             256
+            ReLU-112             [-1, 128, 512]               0
+conv1DBatchNormRelu-113             [-1, 128, 512]               0
+          Conv1d-114             [-1, 128, 512]          81,920
+     BatchNorm1d-115             [-1, 128, 512]             256
+            ReLU-116             [-1, 128, 512]               0
+conv1DBatchNormRelu-117             [-1, 128, 512]               0
+          Conv1d-118             [-1, 128, 512]          81,920
+     BatchNorm1d-119             [-1, 128, 512]             256
+            ReLU-120             [-1, 128, 512]               0
+conv1DBatchNormRelu-121             [-1, 128, 512]               0
+          Conv1d-122             [-1, 128, 512]          81,920
+     BatchNorm1d-123             [-1, 128, 512]             256
+            ReLU-124             [-1, 128, 512]               0
+conv1DBatchNormRelu-125             [-1, 128, 512]               0
+          Conv1d-126             [-1, 128, 512]          81,920
+     BatchNorm1d-127             [-1, 128, 512]             256
+            ReLU-128             [-1, 128, 512]               0
+conv1DBatchNormRelu-129             [-1, 128, 512]               0
+          Conv1d-130             [-1, 128, 512]          81,920
+     BatchNorm1d-131             [-1, 128, 512]             256
+            ReLU-132             [-1, 128, 512]               0
+conv1DBatchNormRelu-133             [-1, 128, 512]               0
+          Conv1d-134             [-1, 128, 512]          81,920
+     BatchNorm1d-135             [-1, 128, 512]             256
+            ReLU-136             [-1, 128, 512]               0
+conv1DBatchNormRelu-137             [-1, 128, 512]               0
+          Conv1d-138             [-1, 128, 512]          81,920
+     BatchNorm1d-139             [-1, 128, 512]             256
+            ReLU-140             [-1, 128, 512]               0
+conv1DBatchNormRelu-141             [-1, 128, 512]               0
+          Conv1d-142             [-1, 128, 512]          81,920
+     BatchNorm1d-143             [-1, 128, 512]             256
+            ReLU-144             [-1, 128, 512]               0
+conv1DBatchNormRelu-145             [-1, 128, 512]               0
+          Conv1d-146             [-1, 128, 512]          81,920
+     BatchNorm1d-147             [-1, 128, 512]             256
+            ReLU-148             [-1, 128, 512]               0
+conv1DBatchNormRelu-149             [-1, 128, 512]               0
+          Conv1d-150             [-1, 128, 512]          81,920
+     BatchNorm1d-151             [-1, 128, 512]             256
+            ReLU-152             [-1, 128, 512]               0
+conv1DBatchNormRelu-153             [-1, 128, 512]               0
+          Conv1d-154             [-1, 128, 512]          81,920
+     BatchNorm1d-155             [-1, 128, 512]             256
+            ReLU-156             [-1, 128, 512]               0
+conv1DBatchNormRelu-157             [-1, 128, 512]               0
+          Conv1d-158             [-1, 128, 512]          81,920
+     BatchNorm1d-159             [-1, 128, 512]             256
+            ReLU-160             [-1, 128, 512]               0
+conv1DBatchNormRelu-161             [-1, 128, 512]               0
+          Conv1d-162             [-1, 128, 512]          81,920
+     BatchNorm1d-163             [-1, 128, 512]             256
+            ReLU-164             [-1, 128, 512]               0
+conv1DBatchNormRelu-165             [-1, 128, 512]               0
+          Conv1d-166             [-1, 128, 512]          81,920
+     BatchNorm1d-167             [-1, 128, 512]             256
+            ReLU-168             [-1, 128, 512]               0
+conv1DBatchNormRelu-169             [-1, 128, 512]               0
+          Conv1d-170             [-1, 128, 512]          81,920
+     BatchNorm1d-171             [-1, 128, 512]             256
+            ReLU-172             [-1, 128, 512]               0
+conv1DBatchNormRelu-173             [-1, 128, 512]               0
+          Conv1d-174             [-1, 128, 512]          81,920
+     BatchNorm1d-175             [-1, 128, 512]             256
+            ReLU-176             [-1, 128, 512]               0
+conv1DBatchNormRelu-177             [-1, 128, 512]               0
+          Conv1d-178             [-1, 128, 512]          81,920
+     BatchNorm1d-179             [-1, 128, 512]             256
+            ReLU-180             [-1, 128, 512]               0
+conv1DBatchNormRelu-181             [-1, 128, 512]               0
+          Conv1d-182             [-1, 128, 512]          81,920
+     BatchNorm1d-183             [-1, 128, 512]             256
+            ReLU-184             [-1, 128, 512]               0
+conv1DBatchNormRelu-185             [-1, 128, 512]               0
+          Conv1d-186             [-1, 128, 512]          81,920
+     BatchNorm1d-187             [-1, 128, 512]             256
+            ReLU-188             [-1, 128, 512]               0
+conv1DBatchNormRelu-189             [-1, 128, 512]               0
+          Conv1d-190             [-1, 128, 512]          81,920
+     BatchNorm1d-191             [-1, 128, 512]             256
+            ReLU-192             [-1, 128, 512]               0
+conv1DBatchNormRelu-193             [-1, 128, 512]               0
+          Conv1d-194             [-1, 128, 512]          81,920
+     BatchNorm1d-195             [-1, 128, 512]             256
+            ReLU-196             [-1, 128, 512]               0
+conv1DBatchNormRelu-197             [-1, 128, 512]               0
+          Conv1d-198             [-1, 128, 512]          81,920
+     BatchNorm1d-199             [-1, 128, 512]             256
+            ReLU-200             [-1, 128, 512]               0
+conv1DBatchNormRelu-201             [-1, 128, 512]               0
+          Conv1d-202             [-1, 128, 512]          81,920
+     BatchNorm1d-203             [-1, 128, 512]             256
+            ReLU-204             [-1, 128, 512]               0
+conv1DBatchNormRelu-205             [-1, 128, 512]               0
+          Conv1d-206             [-1, 128, 512]          81,920
+     BatchNorm1d-207             [-1, 128, 512]             256
+            ReLU-208             [-1, 128, 512]               0
+conv1DBatchNormRelu-209             [-1, 128, 512]               0
+          Conv1d-210             [-1, 128, 512]          81,920
+     BatchNorm1d-211             [-1, 128, 512]             256
+            ReLU-212             [-1, 128, 512]               0
+conv1DBatchNormRelu-213             [-1, 128, 512]               0
+          Conv1d-214             [-1, 128, 512]          81,920
+     BatchNorm1d-215             [-1, 128, 512]             256
+            ReLU-216             [-1, 128, 512]               0
+conv1DBatchNormRelu-217             [-1, 128, 512]               0
+          Conv1d-218             [-1, 128, 512]          81,920
+     BatchNorm1d-219             [-1, 128, 512]             256
+            ReLU-220             [-1, 128, 512]               0
+conv1DBatchNormRelu-221             [-1, 128, 512]               0
+          Conv1d-222             [-1, 128, 512]          81,920
+     BatchNorm1d-223             [-1, 128, 512]             256
+            ReLU-224             [-1, 128, 512]               0
+conv1DBatchNormRelu-225             [-1, 128, 512]               0
+          Conv1d-226             [-1, 128, 512]          81,920
+     BatchNorm1d-227             [-1, 128, 512]             256
+            ReLU-228             [-1, 128, 512]               0
+conv1DBatchNormRelu-229             [-1, 128, 512]               0
+          Conv1d-230             [-1, 128, 512]          81,920
+     BatchNorm1d-231             [-1, 128, 512]             256
+            ReLU-232             [-1, 128, 512]               0
+conv1DBatchNormRelu-233             [-1, 128, 512]               0
+          Conv1d-234             [-1, 128, 512]          81,920
+     BatchNorm1d-235             [-1, 128, 512]             256
+            ReLU-236             [-1, 128, 512]               0
+conv1DBatchNormRelu-237             [-1, 128, 512]               0
+          Conv1d-238             [-1, 128, 512]          81,920
+     BatchNorm1d-239             [-1, 128, 512]             256
+            ReLU-240             [-1, 128, 512]               0
+conv1DBatchNormRelu-241             [-1, 128, 512]               0
+          Conv1d-242             [-1, 128, 512]          81,920
+     BatchNorm1d-243             [-1, 128, 512]             256
+            ReLU-244             [-1, 128, 512]               0
+conv1DBatchNormRelu-245             [-1, 128, 512]               0
+          Conv1d-246             [-1, 128, 512]          81,920
+     BatchNorm1d-247             [-1, 128, 512]             256
+ conv1DBatchNorm-248             [-1, 128, 512]               0
+       Hardswish-249             [-1, 128, 512]               0
+          Conv1d-250               [-1, 1, 508]             640
+     BatchNorm1d-251               [-1, 1, 508]               2
+ conv1DBatchNorm-252               [-1, 1, 508]               0
+================================================================
+Total params: 5,016,859
+Trainable params: 5,016,859
+Non-trainable params: 0
+----------------------------------------------------------------
+Input size (MB): 0.00
+Forward/backward pass size (MB): 124.03
+Params size (MB): 19.14
+Estimated Total Size (MB): 143.17
+----------------------------------------------------------------
+Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-06
+    lr: 0.0001
+    weight_decay: 1e-09
+)
+dilation1,5,9,13
+Epoch 1/20
+train Loss:2.4727 Timer:17485.2346
+val Loss:1.8819 Timer:195.1967
+Epoch 2/20
+train Loss:1.8222 Timer:17411.7566
+val Loss:1.7775 Timer:194.8653
+Epoch 3/20

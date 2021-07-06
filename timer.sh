@@ -2,8 +2,8 @@
 #$ -S /bin/bash
 #$ -cwd
 #$ -V
-#$ -e timer100.log
-#$ -o timer100.log
+#$ -e timer.log
+#$ -o timer.log
 #$ -t 1-10:1
 
 source ~/.bashrc
