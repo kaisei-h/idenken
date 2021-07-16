@@ -283,3 +283,51 @@ Epoch 2/20
 train Loss:1.8222 Timer:17411.7566
 val Loss:1.7775 Timer:194.8653
 Epoch 3/20
+train Loss:1.7422 Timer:17609.1737
+val Loss:1.7129 Timer:194.1627
+Epoch 4/20
+train Loss:1.6960 Timer:17639.4243
+val Loss:1.6827 Timer:193.7725
+Epoch 5/20
+train Loss:1.6641 Timer:17898.7686
+val Loss:1.6481 Timer:247.1272
+Epoch 6/20
+train Loss:1.6408 Timer:17750.4045
+val Loss:1.6339 Timer:197.5676
+Epoch 7/20
+train Loss:1.6232 Timer:17666.5664
+val Loss:1.6164 Timer:201.3579
+Epoch 8/20
+train Loss:1.6099 Timer:17797.1254
+val Loss:1.6076 Timer:208.9609
+Epoch 9/20
+train Loss:1.5996 Timer:17733.7116
+val Loss:1.6012 Timer:197.6025
+Epoch 10/20
+train Loss:1.5911 Timer:17895.5427
+val Loss:1.5910 Timer:237.4988
+Epoch 11/20
+train Loss:1.5838 Timer:17981.0991
+val Loss:1.5887 Timer:198.5745
+Epoch 12/20
+train Loss:1.5771 Timer:17479.0086
+val Loss:1.5802 Timer:196.9545
+Epoch 13/20
+train Loss:1.5704 Timer:17383.7065
+val Loss:1.5744 Timer:195.4575
+Epoch 14/20
+train Loss:1.5630 Timer:17560.2143
+val Loss:1.5807 Timer:204.6250
+Epoch 15/20
+train Loss:1.5553 Timer:17912.0184
+val Loss:1.5711 Timer:248.6846
+Epoch 16/20
+train Loss:1.5462 Timer:17778.0830
+val Loss:1.5631 Timer:202.0470
+Epoch 17/20
+train Loss:1.5367 Timer:17547.0439
+val Loss:1.5549 Timer:195.1037
+Epoch 18/20
+train Loss:1.5276 Timer:17581.8772
+val Loss:1.5841 Timer:201.9592
+Epoch 19/20

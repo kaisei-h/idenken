@@ -104,11 +104,11 @@ class dilation1(nn.Module):
             self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
                                                   kernel_size=kernel_sizes, padding=(kernel_sizes//2)*1, stride=1, dilation=1))
             self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*3, stride=1, dilation=3))
+            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
                                                   kernel_size=kernel_sizes, padding=(kernel_sizes//2)*5, stride=1, dilation=5))
             self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
-                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*9, stride=1, dilation=9))
-            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
-                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*13, stride=1, dilation=13))
+                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*7, stride=1, dilation=7))
 
         self.convs.append(conv1DBatchNorm(in_channels=num_filters, out_channels=num_filters, kernel_size=kernel_sizes, padding=kernel_sizes//2))
         self.convs.append(nn.Hardswish())

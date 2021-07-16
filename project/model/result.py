@@ -34,29 +34,19 @@ def learning_curve(train_loss_list, val_loss_list, epochs):
     
 def cor_hist(cor_list):
     plt.hist(cor_list)
-    # plt.xlim(-1, 1)
+    plt.xlim(-1, 1)
     plt.xlabel('correlation coefficient')
     plt.ylabel('count')
     plt.show()
     print(np.average(cor_list))
 
-
 def loss_hist(loss_list):
     plt.hist(loss_list)
+    plt.xlim(xmin=0)
     plt.xlabel('loss')
     plt.ylabel('count')
     plt.show()
-    print(np.average(loss_list))
-
-    
-def scatter_minmax(cor_list, loss_list, target_all, output_all):
-    plt.scatter(target_all[np.argmax(cor_list)], output_all[np.argmax(cor_list)], label=max(cor_list))
-    plt.scatter(target_all[np.argmin(cor_list)], output_all[np.argmin(cor_list)], label=min(cor_list))
-    plt.xlabel('target')
-    plt.ylabel('output')
-    plt.legend()
-    plt.show()
-    
+    print(np.average(loss_list))    
 
 def cal_indicators(target_all, output_all):
     cor_list = []
@@ -77,11 +67,76 @@ def sort_list(loss_list, cor_list):
 
     return loss_sort, cor_sort
 
+def remake_bad(target_all, output_all, data_all, loss_sort, cor_sort, length=1000):
+    loss_target = []
+    loss_output = []
+    count_A, count_U, count_G, count_C = 0, 0, 0, 0
+    for i in range(length):
+        loss_target.append(target_all[loss_sort[-i-1]])
+        loss_output.append(output_all[loss_sort[-i-1]])
+    
+        count_A += np.count_nonzero(data_all[loss_sort[-i-1]]==1)
+        count_U += np.count_nonzero(data_all[loss_sort[-i-1]]==2)
+        count_G += np.count_nonzero(data_all[loss_sort[-i-1]]==3)
+        count_C += np.count_nonzero(data_all[loss_sort[-i-1]]==4)
+    total = count_A + count_U + count_G + count_C
+    print(f'A:{count_A/total:.3f}, U:{count_U/total:.3f}, G:{count_G/total:.3f}, C:{count_C/total:.3f}')
+
+    cor_target = []
+    cor_output = []
+    count_A, count_U, count_G, count_C = 0, 0, 0, 0
+    for i in range(length):
+        cor_target.append(target_all[cor_sort[i]])
+        cor_output.append(output_all[cor_sort[i]])
+
+        count_A += np.count_nonzero(data_all[cor_sort[i]]==1)
+        count_U += np.count_nonzero(data_all[cor_sort[i]]==2)
+        count_G += np.count_nonzero(data_all[cor_sort[i]]==3)
+        count_C += np.count_nonzero(data_all[cor_sort[i]]==4)
+
+    total = count_A + count_U + count_G + count_C
+    print(f'A:{count_A/total:.3f}, U:{count_U/total:.3f}, G:{count_G/total:.3f}, C:{count_C/total:.3f}')
+
+    return loss_target, loss_output, cor_target, cor_output
+
+def remake_good(target_all, output_all, data_all, loss_sort, cor_sort, length=1000):
+    loss_target = []
+    loss_output = []
+    count_A, count_U, count_G, count_C = 0, 0, 0, 0
+    for i in range(length):
+        loss_target.append(target_all[loss_sort[i]])
+        loss_output.append(output_all[loss_sort[i]])
+    
+        count_A += np.count_nonzero(data_all[loss_sort[i]]==1)
+        count_U += np.count_nonzero(data_all[loss_sort[i]]==2)
+        count_G += np.count_nonzero(data_all[loss_sort[i]]==3)
+        count_C += np.count_nonzero(data_all[loss_sort[i]]==4)
+    total = count_A + count_U + count_G + count_C
+    print(f'A:{count_A/total:.3f}, U:{count_U/total:.3f}, G:{count_G/total:.3f}, C:{count_C/total:.3f}')
+
+    cor_target = []
+    cor_output = []
+    count_A, count_U, count_G, count_C = 0, 0, 0, 0
+    for i in range(length):
+        cor_target.append(target_all[cor_sort[-i-1]])
+        cor_output.append(output_all[cor_sort[-i-1]])
+
+        count_A += np.count_nonzero(data_all[cor_sort[-i-1]]==1)
+        count_U += np.count_nonzero(data_all[cor_sort[-i-1]]==2)
+        count_G += np.count_nonzero(data_all[cor_sort[-i-1]]==3)
+        count_C += np.count_nonzero(data_all[cor_sort[-i-1]]==4)
+
+    total = count_A + count_U + count_G + count_C
+    print(f'A:{count_A/total:.3f}, U:{count_U/total:.3f}, G:{count_G/total:.3f}, C:{count_C/total:.3f}')
+
+    return loss_target, loss_output, cor_target, cor_output
+
+
 
 def visible_one(target_all, output_all, data_all, loss_list, cor_list, idx=None):
     if (idx==None):
         ii = np.random.randint(0, len(target_all))
-        print('random=',random)
+        print('random=',ii)
     else:
         ii = idx
     plt.figure(figsize=(15, 7))
@@ -95,53 +150,24 @@ def visible_one(target_all, output_all, data_all, loss_list, cor_list, idx=None)
     print('cor', cor_list[ii])
     plt.show()
 
-    base_list = []
-    for n in range(len(data_all[0])):
-        if (data_all[ii][n]==1):
-            base_list.append('A')
-        elif (data_all[ii][n]==2):
-            base_list.append('U')
-        elif (data_all[ii][n]==3):
-            base_list.append('G')
-        elif (data_all[ii][n]==4):
-            base_list.append('C')
-        elif (data_all[ii][n]==0):
-            continue
-    print(''.join(base_list))
+    count_A = np.count_nonzero(data_all[ii]==1)
+    count_U = np.count_nonzero(data_all[ii]==2)
+    count_G = np.count_nonzero(data_all[ii]==3)
+    count_C = np.count_nonzero(data_all[ii]==4)
+    total = count_A + count_U + count_G + count_C
+    print(f'A:{count_A/total:.3f}, U:{count_U/total:.3f}, G:{count_G/total:.3f}, C:{count_C/total:.3f}')
 
-
-# def visible_minmax(target_all, output_all, cor_list, loss_list):
-#     tmp = {'cor_max': np.argmax(cor_list), 
-#            'cor_min': np.argmin(cor_list),
-#            'loss_max': np.argmax(loss_list),
-#            'loss_min': np.argmin(loss_list)} 
-#     for k, v in tmp.items():
-#         plt.figure(figsize=(15, 7))
-#         # plt.bar(np.array(range(len(target_all[0])))-0.2 , target_all[v], label='target', color='b', width=0.4, align='center')
-#         # plt.bar(np.array(range(len(target_all[0])))+0.2 , output_all[v], label='output', color='r', width=0.4, align='center')
-#         plt.plot(np.array(range(len(target_all[0]))) , target_all[v], label='target', color='b')
-#         plt.plot(np.array(range(len(target_all[0]))) , output_all[v], label='output', color='r')
-#         plt.legend()
-#         plt.title(k)
-#         plt.show()
-
-
-# def show_base(data_all, cor_list, loss_list):
-#     tmp = {'cor_max': np.argmax(cor_list), 
-#            'cor_min': np.argmin(cor_list),
-#            'loss_max': np.argmax(loss_list),
-#            'loss_min': np.argmin(loss_list)}
-#     for k, v in tmp.items():
-#         base_list = []
-#         for i in range(len(data_all[0])):
-#             if (data_all[v][i]==1):
-#                 base_list.append('A')
-#             elif (data_all[v][i]==2):
-#                 base_list.append('U')
-#             elif (data_all[v][i]==3):
-#                 base_list.append('G')
-#             elif (data_all[v][i]==4):
-#                 base_list.append('C')
-#             elif (data_all[v][i]==0):
-#                 continue
-#         print(k, ''.join(base_list))
+    # base_list = []
+    # for n in range(len(data_all[0])):
+    #     if (data_all[ii][n]==1):
+    #         base_list.append('A')
+    #     elif (data_all[ii][n]==2):
+    #         base_list.append('U')
+    #     elif (data_all[ii][n]==3):
+    #         base_list.append('G')
+    #     elif (data_all[ii][n]==4):
+    #         base_list.append('C')
+    #     elif (data_all[ii][n]==0):
+    #         continue
+    
+    # print(''.join(base_list))
