@@ -78,15 +78,17 @@ target_val10 = torch.flip(target_val10, dims=[1])
 # target_val16 = torch.flip(target_val16, dims=[1])
 
 
-input_all = torch.cat([input_val0,input_val1,input_val2,input_val3], dim=0)
-target_all = torch.cat([target_val0,target_val1,target_val2,target_val3], dim=0)
+input_all = torch.cat([input_val0,input_val1,input_val2,input_val3,input_val4,input_val5,input_val6,input_val7,input_val8,input_val9,input_val10], dim=0)
+target_all = torch.cat([target_val0,target_val1,target_val2,target_val3,target_val4,target_val5,target_val6,target_val7,target_val8,target_val9,target_val10], dim=0)
 
-split_rate = [1800000, 200000]
+split_rate = [5000000, 500000]
 dataset = model.Dataset(input_all, target_all)
 train_dataset, val_dataset = torch.utils.data.random_split(dataset, split_rate)
 print(split_rate)
 
 del input_val0,target_val0,input_val1,target_val1,input_val2,target_val2,input_val3,target_val3
+del input_val4,target_val4,input_val5,target_val5,input_val6,target_val6,input_val7,target_val7
+del input_val8,target_val8,input_val9,target_val9,input_val10,target_val10
 gc.collect()
 
 import math
@@ -113,7 +115,7 @@ criterion = nn.MSELoss().to(device)
 
 scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda_epoch)
 train_loss_list, val_loss_list, data_all, target_all, output_all = mode.train(device, net, dataloaders_dict, criterion, optimizer, epochs)               
-torch.save(net.state_dict(), 'small_data.pth')
+torch.save(net.state_dict(), 'big_data.pth')
 
 
 y_true, y_est = np.array(target_all, dtype=object).reshape(-1), np.array(output_all, dtype=object).reshape(-1)
@@ -131,4 +133,4 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 divider = make_axes_locatable(ax)
 cax = divider.append_axes("right", size="5%", pad=0.1)
 fig.colorbar(cset, cax=cax).ax.set_title("count")
-plt.savefig(f'small_data_{val_loss_list[-1]:.2f}.png')
+plt.savefig(f'big_data_{val_loss_list[-1]:.2f}.png')

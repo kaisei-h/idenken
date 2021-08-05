@@ -132,6 +132,23 @@ def remake_good(target_all, output_all, data_all, loss_sort, cor_sort, length=10
     return loss_target, loss_output, cor_target, cor_output
 
 
+def count_diff(data_all):
+    diff_list = []
+    for i in data_all:
+        count_A, count_U, count_G, count_C = 0, 0, 0, 0
+        count_A += np.count_nonzero(i==1)
+        count_U += np.count_nonzero(i==2)
+        count_G += np.count_nonzero(i==3)
+        count_C += np.count_nonzero(i==4)
+        diff = abs(count_A-len(i)/4) + abs(count_U-len(i)/4) + abs(count_G-len(i)/4) + abs(count_C-len(i)/4)
+        diff_list.append(diff)
+
+def heat_scatter(x:np.array, y:np.array) -> None:
+    fig,ax = plt.subplots(1,1,dpi=150,figsize=(5,5))
+    counts, xedges, yedges, Image = ax.hist2d(x, y, bins=100, norm=LogNorm(),)
+    fig.colorbar(Image, ax=ax)
+    plt.show()
+
 
 def visible_one(target_all, output_all, data_all, loss_list, cor_list, idx=None):
     if (idx==None):

@@ -8,8 +8,8 @@
 #$ -l s_vmem=96G 
 #$ -l mem_req=96G
 #$ -N j_serv
-#$ -l d_rt=120:00:00
-#$ -l s_rt=120:00:00
+#$ -l d_rt=240:00:00
+#$ -l s_rt=240:00:00
 module load singularity
 module load cuda90/toolkit/9.0.176
 module load gcc5/5.5.0
