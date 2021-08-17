@@ -1,0 +1,467 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+[2021/08/11 11:32:44] loading pickle data
+[5000000, 500000]
+dilation11(
+  (embedding): Embedding(5, 5)
+  (convs): ModuleList(
+    (0): conv1DBatchNorm(
+      (conv): Conv1d(5, 128, kernel_size=(5,), stride=(1,), padding=(2,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (1): Hardswish()
+    (2): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(2,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (3): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(14,), dilation=(7,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (4): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(26,), dilation=(13,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (5): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(38,), dilation=(19,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (6): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(50,), dilation=(25,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (7): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(2,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (8): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(14,), dilation=(7,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (9): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(26,), dilation=(13,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (10): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(38,), dilation=(19,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (11): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(50,), dilation=(25,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (12): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(2,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (13): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(14,), dilation=(7,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (14): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(26,), dilation=(13,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (15): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(38,), dilation=(19,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (16): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(50,), dilation=(25,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (17): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(2,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (18): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(14,), dilation=(7,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (19): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(26,), dilation=(13,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (20): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(38,), dilation=(19,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (21): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(50,), dilation=(25,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (22): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(2,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (23): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(14,), dilation=(7,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (24): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(26,), dilation=(13,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (25): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(38,), dilation=(19,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (26): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(50,), dilation=(25,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (27): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(2,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (28): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(14,), dilation=(7,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (29): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(26,), dilation=(13,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (30): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(38,), dilation=(19,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (31): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(50,), dilation=(25,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (32): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(2,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (33): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(14,), dilation=(7,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (34): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(26,), dilation=(13,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (35): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(38,), dilation=(19,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (36): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(50,), dilation=(25,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (37): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(2,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (38): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(14,), dilation=(7,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (39): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(26,), dilation=(13,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (40): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(38,), dilation=(19,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (41): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(50,), dilation=(25,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (42): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(2,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (43): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(14,), dilation=(7,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (44): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(26,), dilation=(13,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (45): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(38,), dilation=(19,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (46): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(50,), dilation=(25,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (47): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(2,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (48): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(14,), dilation=(7,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (49): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(26,), dilation=(13,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (50): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(38,), dilation=(19,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (51): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(50,), dilation=(25,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (52): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(2,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (53): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(14,), dilation=(7,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (54): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(26,), dilation=(13,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (55): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(38,), dilation=(19,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (56): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(50,), dilation=(25,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (57): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(2,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (58): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(14,), dilation=(7,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (59): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(26,), dilation=(13,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (60): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(38,), dilation=(19,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (61): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(50,), dilation=(25,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (62): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(2,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (63): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(14,), dilation=(7,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (64): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(26,), dilation=(13,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (65): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(38,), dilation=(19,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (66): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(50,), dilation=(25,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (67): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(2,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (68): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(14,), dilation=(7,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (69): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(26,), dilation=(13,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (70): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(38,), dilation=(19,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (71): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(50,), dilation=(25,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (72): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(2,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (73): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(14,), dilation=(7,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (74): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(26,), dilation=(13,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (75): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(38,), dilation=(19,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (76): conv1DBatchNormRelu(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(50,), dilation=(25,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (relu): ReLU(inplace=True)
+    )
+    (77): conv1DBatchNorm(
+      (conv): Conv1d(128, 128, kernel_size=(5,), stride=(1,), padding=(2,), bias=False)
+      (batchnorm): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (78): Hardswish()
+    (79): conv1DBatchNorm(
+      (conv): Conv1d(128, 1, kernel_size=(5,), stride=(1,), bias=False)
+      (batchnorm): BatchNorm1d(1, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+)
+Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-05
+    lr: 0.0001
+    weight_decay: 1e-08
+)
+dilation = 1,7,13,19,25
+Epoch 1/20
+train Loss:2.8161 Timer:13526.5304
+val Loss:1.8618 Timer:265.0582
+Epoch 2/20
+train Loss:1.7702 Timer:13378.4781
+val Loss:1.7109 Timer:237.3521
+Epoch 3/20
+train Loss:1.6851 Timer:13066.4150
+val Loss:1.6597 Timer:234.5908
+Epoch 4/20
+train Loss:1.6458 Timer:13084.3322
+val Loss:1.6357 Timer:251.6134
+Epoch 5/20
+train Loss:1.6207 Timer:13356.9521
+val Loss:1.6085 Timer:282.1310
+Epoch 6/20
+train Loss:1.6031 Timer:13389.2271
+val Loss:1.5961 Timer:253.0451
+Epoch 7/20
+train Loss:1.5906 Timer:13562.6018
+val Loss:1.5836 Timer:249.8036
+Epoch 8/20
+train Loss:1.5813 Timer:13421.4707
+val Loss:1.5826 Timer:244.5666
+Epoch 9/20
+train Loss:1.5742 Timer:13365.4495
+val Loss:1.5766 Timer:241.0790
+Epoch 10/20
+train Loss:1.5683 Timer:13169.5024
+val Loss:1.5698 Timer:304.9617
+Epoch 11/20
+train Loss:1.5623 Timer:13484.6729
+val Loss:1.5681 Timer:261.7794
+Epoch 12/20
+train Loss:1.5538 Timer:13708.2767
+val Loss:1.5655 Timer:260.9225
+Epoch 13/20
+train Loss:1.5426 Timer:13434.6248
+val Loss:1.5735 Timer:262.6918
+Epoch 14/20
+train Loss:1.5304 Timer:13600.6480
+val Loss:1.5575 Timer:269.9901
+Epoch 15/20
+train Loss:1.5179 Timer:13630.8167
+val Loss:1.5519 Timer:298.9822
+Epoch 16/20
+train Loss:1.5059 Timer:13563.2228
+val Loss:1.5974 Timer:244.3004
+Epoch 17/20
+train Loss:1.4941 Timer:13721.0334
+val Loss:1.5458 Timer:253.4444
+Epoch 18/20
+train Loss:1.4834 Timer:13478.8927
+val Loss:1.5917 Timer:244.0013
+Epoch 19/20
+train Loss:1.4730 Timer:13383.8287
+val Loss:1.5609 Timer:252.3950
+Epoch 20/20
+train Loss:1.4636 Timer:13671.3711
+val Loss:1.5282 Timer:298.5685

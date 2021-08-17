@@ -103,10 +103,10 @@ train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_s
 val_dataloader = torch.utils.data.DataLoader(val_dataset, batch_size=batch_size, shuffle=True, num_workers=1)
 dataloaders_dict = {'train': train_dataloader, 'val': val_dataloader}
 
-net = model.dilation1(num_layer=16, num_filters=128, kernel_sizes=5).to(device)
+net = model.dilation11(num_layer=16, num_filters=128, kernel_sizes=5).to(device)
 net.apply(model.weight_init) #重みの初期化適用
-# summary(net, (512,))
-print(net)
+summary(net, (512,))
+# print(net)
 
 optimizer = optim.Adam(net.parameters(), lr=1e-4, weight_decay=1e-8, eps=1e-5)
 print(optimizer)
@@ -115,7 +115,7 @@ criterion = nn.MSELoss().to(device)
 
 scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda_epoch)
 train_loss_list, val_loss_list, data_all, target_all, output_all = mode.train(device, net, dataloaders_dict, criterion, optimizer, epochs)               
-torch.save(net.state_dict(), 'big_data.pth')
+torch.save(net.state_dict(), 'big_dilation.pth')
 
 
 y_true, y_est = np.array(target_all, dtype=object).reshape(-1), np.array(output_all, dtype=object).reshape(-1)
@@ -133,4 +133,4 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 divider = make_axes_locatable(ax)
 cax = divider.append_axes("right", size="5%", pad=0.1)
 fig.colorbar(cset, cax=cax).ax.set_title("count")
-plt.savefig(f'big_data_{val_loss_list[-1]:.2f}.png')
+plt.savefig(f'big_dilation_{val_loss_list[-1]:.2f}.png')

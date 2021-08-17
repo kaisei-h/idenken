@@ -70,10 +70,12 @@ def sort_list(loss_list, cor_list):
 def remake_bad(target_all, output_all, data_all, loss_sort, cor_sort, length=1000):
     loss_target = []
     loss_output = []
+    loss_data = []
     count_A, count_U, count_G, count_C = 0, 0, 0, 0
     for i in range(length):
         loss_target.append(target_all[loss_sort[-i-1]])
         loss_output.append(output_all[loss_sort[-i-1]])
+        loss_data.append(data_all[loss_sort[-i-1]])
     
         count_A += np.count_nonzero(data_all[loss_sort[-i-1]]==1)
         count_U += np.count_nonzero(data_all[loss_sort[-i-1]]==2)
@@ -84,10 +86,12 @@ def remake_bad(target_all, output_all, data_all, loss_sort, cor_sort, length=100
 
     cor_target = []
     cor_output = []
+    cor_data = []
     count_A, count_U, count_G, count_C = 0, 0, 0, 0
     for i in range(length):
         cor_target.append(target_all[cor_sort[i]])
         cor_output.append(output_all[cor_sort[i]])
+        cor_data.append(data_all[cor_sort[i]])
 
         count_A += np.count_nonzero(data_all[cor_sort[i]]==1)
         count_U += np.count_nonzero(data_all[cor_sort[i]]==2)
@@ -97,15 +101,17 @@ def remake_bad(target_all, output_all, data_all, loss_sort, cor_sort, length=100
     total = count_A + count_U + count_G + count_C
     print(f'A:{count_A/total:.3f}, U:{count_U/total:.3f}, G:{count_G/total:.3f}, C:{count_C/total:.3f}')
 
-    return loss_target, loss_output, cor_target, cor_output
+    return loss_target, loss_output, loss_data, cor_target, cor_output, cor_data
 
 def remake_good(target_all, output_all, data_all, loss_sort, cor_sort, length=1000):
     loss_target = []
     loss_output = []
+    loss_data = []
     count_A, count_U, count_G, count_C = 0, 0, 0, 0
     for i in range(length):
         loss_target.append(target_all[loss_sort[i]])
         loss_output.append(output_all[loss_sort[i]])
+        loss_data.append(data_all[loss_sort[i]])
     
         count_A += np.count_nonzero(data_all[loss_sort[i]]==1)
         count_U += np.count_nonzero(data_all[loss_sort[i]]==2)
@@ -116,10 +122,12 @@ def remake_good(target_all, output_all, data_all, loss_sort, cor_sort, length=10
 
     cor_target = []
     cor_output = []
+    cor_data = []
     count_A, count_U, count_G, count_C = 0, 0, 0, 0
     for i in range(length):
         cor_target.append(target_all[cor_sort[-i-1]])
         cor_output.append(output_all[cor_sort[-i-1]])
+        cor_data.append(data_all[cor_sort[-i-1]])
 
         count_A += np.count_nonzero(data_all[cor_sort[-i-1]]==1)
         count_U += np.count_nonzero(data_all[cor_sort[-i-1]]==2)
@@ -129,7 +137,7 @@ def remake_good(target_all, output_all, data_all, loss_sort, cor_sort, length=10
     total = count_A + count_U + count_G + count_C
     print(f'A:{count_A/total:.3f}, U:{count_U/total:.3f}, G:{count_G/total:.3f}, C:{count_C/total:.3f}')
 
-    return loss_target, loss_output, cor_target, cor_output
+    return loss_target, loss_output, loss_data, cor_target, cor_output, cor_data
 
 
 def count_diff(data_all):
@@ -143,10 +151,14 @@ def count_diff(data_all):
         diff = abs(count_A-len(i)/4) + abs(count_U-len(i)/4) + abs(count_G-len(i)/4) + abs(count_C-len(i)/4)
         diff_list.append(diff)
 
+    return diff_list
+
 def heat_scatter(x:np.array, y:np.array) -> None:
     fig,ax = plt.subplots(1,1,dpi=150,figsize=(5,5))
-    counts, xedges, yedges, Image = ax.hist2d(x, y, bins=100, norm=LogNorm(),)
+    counts, xedges, yedges, Image = ax.hist2d(x, y, bins=50, norm=LogNorm(),)
     fig.colorbar(Image, ax=ax)
+    plt.xlabel('diff')
+    plt.ylabel('accuracy')
     plt.show()
 
 

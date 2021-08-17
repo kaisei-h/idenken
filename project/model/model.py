@@ -125,6 +125,44 @@ class dilation1(nn.Module):
         x = x.view(x.shape[0], -1)
         return x
 
+class dilation11(nn.Module):
+    def __init__(self, emb_dim=5, num_layer=8, num_filters=32, kernel_sizes=5):
+        super(dilation11, self).__init__()
+        self.filter = num_filters
+        self.embedding = nn.Embedding(5, emb_dim)
+
+        self.convs = nn.ModuleList()
+        self.convs.append(conv1DBatchNorm(in_channels=emb_dim, out_channels=num_filters,
+                         kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
+        self.convs.append(nn.Hardswish())
+        # self.convs.append(scSE(channels=num_filters))
+        for i in range(1, num_layer):
+            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*1, stride=1, dilation=1))
+            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*7, stride=1, dilation=7))
+            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*13, stride=1, dilation=13))
+            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*19, stride=1, dilation=19))
+            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters, 
+                                                  kernel_size=kernel_sizes, padding=(kernel_sizes//2)*25, stride=1, dilation=25))
+
+        self.convs.append(conv1DBatchNorm(in_channels=num_filters, out_channels=num_filters, kernel_size=kernel_sizes, padding=kernel_sizes//2))
+        self.convs.append(nn.Hardswish())
+        # self.convs.append(scSE(channels=num_filters))
+        self.convs.append(conv1DBatchNorm(in_channels=num_filters, out_channels=1, kernel_size=5))        
+
+    def forward(self, x):
+        x = self.embedding(x.long())
+        x = torch.transpose(x, 1, 2)
+        for i, l in enumerate(self.convs):
+            x = l(x)
+
+#デコード
+        x = x.view(x.shape[0], -1)
+        return x
+
 class dilation2(nn.Module):
     def __init__(self, emb_dim=5, num_layer=8, num_filters=32, kernel_sizes=5):
         super(dilation2, self).__init__()

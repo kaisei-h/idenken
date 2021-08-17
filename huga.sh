@@ -8,7 +8,7 @@
 
 source ~/.bashrc
 
-length = 512
+# length=512
 
 for ((i = $SGE_TASK_ID; i < $SGE_TASK_ID+1000; i++)){
 	cd /home/kaisei-h/project/data/makedata/train
