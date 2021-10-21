@@ -90,10 +90,10 @@ class Variable(nn.Module):
         return x
 
 class dilation1(nn.Module):
-    def __init__(self, emb_dim=5, num_layer=8, num_filters=32, kernel_sizes=5):
+    def __init__(self, emb_dim=128, num_layer=8, num_filters=32, kernel_sizes=5):
         super(dilation1, self).__init__()
         self.filter = num_filters
-        self.embedding = nn.Embedding(5, emb_dim)
+        self.embedding = nn.Embedding(64, emb_dim)
 
         self.convs = nn.ModuleList()
         self.convs.append(conv1DBatchNorm(in_channels=emb_dim, out_channels=num_filters,

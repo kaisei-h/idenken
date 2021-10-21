@@ -37,27 +37,39 @@ target_val2 = torch.flip(target_val2, dims=[1])
 input_val3 = pickle.load(open("../data/max_span100_512/input_val3.pkl","rb"))
 target_val3 = pickle.load(open("../data/max_span100_512/target_val3.pkl","rb")) #512のみ
 target_val3 = torch.flip(target_val3, dims=[1])
-input_val4 = pickle.load(open("../data/max_span100_512/input_val4.pkl","rb"))
-target_val4 = pickle.load(open("../data/max_span100_512/target_val4.pkl","rb")) #512のみ
-target_val4 = torch.flip(target_val4, dims=[1])
-input_val5 = pickle.load(open("../data/max_span100_512/input_val5.pkl","rb"))
-target_val5 = pickle.load(open("../data/max_span100_512/target_val5.pkl","rb")) #512のみ
-target_val5 = torch.flip(target_val5, dims=[1])
-input_val6 = pickle.load(open("../data/max_span100_512/input_val6.pkl","rb"))
-target_val6 = pickle.load(open("../data/max_span100_512/target_val6.pkl","rb")) #512のみ
-target_val6 = torch.flip(target_val6, dims=[1])
-input_val7 = pickle.load(open("../data/max_span100_512/input_val7.pkl","rb"))
-target_val7 = pickle.load(open("../data/max_span100_512/target_val7.pkl","rb")) #512のみ
-target_val7 = torch.flip(target_val7, dims=[1])
-input_val8 = pickle.load(open("../data/max_span100_512/input_val8.pkl","rb"))
-target_val8 = pickle.load(open("../data/max_span100_512/target_val8.pkl","rb")) #512のみ
-target_val8 = torch.flip(target_val8, dims=[1])
-input_val9 = pickle.load(open("../data/max_span100_512/input_val9.pkl","rb"))
-target_val9 = pickle.load(open("../data/max_span100_512/target_val9.pkl","rb")) #512のみ
-target_val9 = torch.flip(target_val9, dims=[1])
-input_val10 = pickle.load(open("../data/max_span100_512/input_val10.pkl","rb"))
-target_val10 = pickle.load(open("../data/max_span100_512/target_val10.pkl","rb")) #512のみ
-target_val10 = torch.flip(target_val10, dims=[1])
+# input_val4 = pickle.load(open("../data/max_span100_512/input_val4.pkl","rb"))
+# target_val4 = pickle.load(open("../data/max_span100_512/target_val4.pkl","rb")) #512のみ
+# target_val4 = torch.flip(target_val4, dims=[1])
+# input_val5 = pickle.load(open("../data/max_span100_512/input_val5.pkl","rb"))
+# target_val5 = pickle.load(open("../data/max_span100_512/target_val5.pkl","rb")) #512のみ
+# target_val5 = torch.flip(target_val5, dims=[1])
+# input_val6 = pickle.load(open("../data/max_span100_512/input_val6.pkl","rb"))
+# target_val6 = pickle.load(open("../data/max_span100_512/target_val6.pkl","rb")) #512のみ
+# target_val6 = torch.flip(target_val6, dims=[1])
+input_pro0 = pickle.load(open("../data/max_span100_512/input_pro0.pkl","rb"))
+target_pro0 = pickle.load(open("../data/max_span100_512/target_pro0.pkl","rb")) #精度が低かった塩基組成
+target_pro0 = torch.flip(target_pro0, dims=[1])
+input_pro1 = pickle.load(open("../data/max_span100_512/input_pro1.pkl","rb"))
+target_pro1 = pickle.load(open("../data/max_span100_512/target_pro1.pkl","rb")) #精度が低かった塩基組成
+target_pro1 = torch.flip(target_pro1, dims=[1])
+input_pro2 = pickle.load(open("../data/max_span100_512/input_pro2.pkl","rb"))
+target_pro2 = pickle.load(open("../data/max_span100_512/target_pro2.pkl","rb")) #精度が低かった塩基組成
+target_pro2 = torch.flip(target_pro2, dims=[1])
+input_pro3 = pickle.load(open("../data/max_span100_512/input_pro3.pkl","rb"))
+target_pro3 = pickle.load(open("../data/max_span100_512/target_pro3.pkl","rb")) #精度が低かった塩基組成
+target_pro3 = torch.flip(target_pro3, dims=[1])
+# input_val7 = pickle.load(open("../data/max_span100_512/input_val7.pkl","rb"))
+# target_val7 = pickle.load(open("../data/max_span100_512/target_val7.pkl","rb")) #512のみ
+# target_val7 = torch.flip(target_val7, dims=[1])
+# input_val8 = pickle.load(open("../data/max_span100_512/input_val8.pkl","rb"))
+# target_val8 = pickle.load(open("../data/max_span100_512/target_val8.pkl","rb")) #512のみ
+# target_val8 = torch.flip(target_val8, dims=[1])
+# input_val9 = pickle.load(open("../data/max_span100_512/input_val9.pkl","rb"))
+# target_val9 = pickle.load(open("../data/max_span100_512/target_val9.pkl","rb")) #512のみ
+# target_val9 = torch.flip(target_val9, dims=[1])
+# input_val10 = pickle.load(open("../data/max_span100_512/input_val10.pkl","rb"))
+# target_val10 = pickle.load(open("../data/max_span100_512/target_val10.pkl","rb")) #512のみ
+# target_val10 = torch.flip(target_val10, dims=[1])
 # input_val11 = pickle.load(open("../data/max_span100_512/input_val11.pkl","rb"))
 # target_val11 = pickle.load(open("../data/max_span100_512/target_val11.pkl","rb")) #512のみ
 # target_val11 = torch.flip(target_val11, dims=[1])
@@ -78,17 +90,24 @@ target_val10 = torch.flip(target_val10, dims=[1])
 # target_val16 = torch.flip(target_val16, dims=[1])
 
 
-input_all = torch.cat([input_val0,input_val1,input_val2,input_val3,input_val4,input_val5,input_val6,input_val7,input_val8,input_val9,input_val10], dim=0)
-target_all = torch.cat([target_val0,target_val1,target_val2,target_val3,target_val4,target_val5,target_val6,target_val7,target_val8,target_val9,target_val10], dim=0)
+input_all = torch.cat([input_val0,input_val1,input_val2,input_val3,input_pro0,input_pro1,input_pro2,input_pro3], dim=0)
+target_all = torch.cat([target_val0,target_val1,target_val2,target_val3,target_pro0,target_pro1,target_pro2,target_pro3], dim=0)
 
-split_rate = [5000000, 500000]
+
+kmer = []
+for i in range(len(input_all)-2):
+    kmer.append(int(str(int(input_all[i]))+str(int(input_all[i+1]))+str(int(input_all[i+2]))))
+kmer = torch.Tensor(kmer)
+print(kmer[:100])
+
+
+split_rate = [3500000, 500000]
 dataset = model.Dataset(input_all, target_all)
 train_dataset, val_dataset = torch.utils.data.random_split(dataset, split_rate)
 print(split_rate)
 
 del input_val0,target_val0,input_val1,target_val1,input_val2,target_val2,input_val3,target_val3
-del input_val4,target_val4,input_val5,target_val5,input_val6,target_val6,input_val7,target_val7
-del input_val8,target_val8,input_val9,target_val9,input_val10,target_val10
+del input_pro0,target_pro0,input_pro1,target_pro1,input_pro2,target_pro2,input_pro3,target_pro3
 gc.collect()
 
 import math
@@ -115,7 +134,7 @@ criterion = nn.MSELoss().to(device)
 
 scheduler = optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda_epoch)
 train_loss_list, val_loss_list, data_all, target_all, output_all = mode.train(device, net, dataloaders_dict, criterion, optimizer, epochs)               
-torch.save(net.state_dict(), 'big_dilation.pth')
+torch.save(net.state_dict(), 'pro_data.pth')
 
 
 y_true, y_est = np.array(target_all, dtype=object).reshape(-1), np.array(output_all, dtype=object).reshape(-1)
@@ -133,4 +152,4 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 divider = make_axes_locatable(ax)
 cax = divider.append_axes("right", size="5%", pad=0.1)
 fig.colorbar(cset, cax=cax).ax.set_title("count")
-plt.savefig(f'big_dilation_{val_loss_list[-1]:.2f}.png')
+plt.savefig(f'pro_data_{val_loss_list[-1]:.2f}.png')

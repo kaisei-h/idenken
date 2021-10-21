@@ -19,6 +19,7 @@ datePrint(f"reading {cond} files")
 for i in range(cnt):
     x = i + (int(sys.argv[1])-1)*100000
     input_path = data_path / f"index/input_{x+1}.csv"
+    # input_path = data_path / f"kmer/k_inp_{x+1}.csv"
     target_path = data_path / f"accessibility/target_{x+1}.csv"
     input_array.append(torch.Tensor(np.loadtxt(input_path, delimiter=",", dtype=np.float).astype(np.int)))
     target_array.append(torch.Tensor(np.loadtxt(target_path, delimiter=",", dtype=np.float)))
