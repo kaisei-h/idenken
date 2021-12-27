@@ -24,10 +24,10 @@ for i in range(cnt):
 # pickle.dump(np.stack(seq_array), open(f"pickled/seq{sys.argv[2]}.pkl", "wb"))
 
 print(f"saving to {sys.argv[3]}.tsv")
-with open(f"pickled/{sys.argv[3]}.tsv", 'w') as f:
+with open(f"forbert/{sys.argv[3]}.tsv", 'w') as f:
     f.writelines('sequence\tlabel\n')
     f.writelines(kmer_array)
 
 print(f"saving to target_{sys.argv[3]}.pkl")
-pickle.dump(np.stack(target_array), open(f"pickled/target_{sys.argv[3]}.pkl", "wb"))
+pickle.dump(np.stack(target_array), open(f"forbert/target_{sys.argv[3]}.pkl", "wb"))
 

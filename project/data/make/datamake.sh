@@ -8,7 +8,7 @@
 
 source ~/.bashrc
 echo start`date`
-length=256
+length=512
 
 cd /home/kaisei-h/project/data/make
 for ((i = $SGE_TASK_ID; i < $SGE_TASK_ID+1000; i++)){
