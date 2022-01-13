@@ -94,7 +94,7 @@ class dilation1(nn.Module):
     def __init__(self, emb_dim=128, num_layer=8, num_filters=32, kernel_sizes=5):
         super(dilation1, self).__init__()
         self.filter = num_filters
-        self.embedding = nn.Embedding(1024, emb_dim)
+        self.embedding = nn.Embedding(6, emb_dim)
 
         self.convs = nn.ModuleList()
         self.convs.append(conv1DBatchNorm(in_channels=emb_dim, out_channels=num_filters,
@@ -114,7 +114,7 @@ class dilation1(nn.Module):
         self.convs.append(conv1DBatchNorm(in_channels=num_filters, out_channels=num_filters, kernel_size=kernel_sizes, padding=kernel_sizes//2))
         self.convs.append(nn.Hardswish())
         # self.convs.append(scSE(channels=num_filters))
-        self.convs.append(conv1DBatchNorm(in_channels=num_filters, out_channels=1, kernel_size=1))        
+        self.convs.append(conv1DBatchNorm(in_channels=num_filters, out_channels=1, kernel_size=5))        
 
     def forward(self, x):
         x = self.embedding(x.long())

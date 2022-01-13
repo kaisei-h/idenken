@@ -1,13 +1,14 @@
 #!/bin/bash
-#$ -o j_out.log
-#$ -e j_error.log
+#$ -o jnote.log
+#$ -e jnote.log
 #$ -cwd
+#$ -V
 #$ -m be
 #$ -l gpu
 #$ -l cuda=1
 #$ -l s_vmem=96G
 #$ -l mem_req=96G
-#$ -N j_serv
+#$ -N jnote
 #$ -l d_rt=240:00:00
 #$ -l s_rt=240:00:00
 module load singularity

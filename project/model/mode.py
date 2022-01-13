@@ -8,7 +8,7 @@ import result
 def train(device, net, dataloaders_dict, criterion, optimizer, epochs):
     net.to(device)
     torch.backends.cudnn.benchmark = True
-    scaler = torch.cuda.amp.GradScaler()
+    # scaler = torch.cuda.amp.GradScaler()
 
     train_loss_list = []
     val_loss_list = []
@@ -41,27 +41,32 @@ def train(device, net, dataloaders_dict, criterion, optimizer, epochs):
                 with torch.cuda.amp.autocast():
                     with torch.set_grad_enabled(phase=='train'):
                         output = net(data)
-                        
-    #                     zero_index = torch.where((data==0).nonzero())
-    #                     datePrint(zero_index)
-                                    
+#                     zero_index = torch.where((data==0).nonzero())
+#                     datePrint(zero_index)
+                                
                         if (phase == 'val') and ((epoch+1)%5==0):
                             for i in range(len(target)):
+                                if output[i].any(0.0):
+                                    continue
+                                else:
     #                             if (0 in data[i]):
     #                                 output[i][:256-data[i].tolist().index(0)] = 0
-                                data_all.append(data[i].cpu().numpy())
-                                target_all.append(target[i].cpu().numpy())
-                                output_all.append(output[i].cpu().numpy())
+                                    data_all.append(data[i].cpu().numpy())
+                                    target_all.append(target[i].cpu().numpy())
+                                    output_all.append(output[i].cpu().numpy())
         
                         loss = criterion(output, target)
-                        if phase == 'train':
-                            # loss.backward()
-                            scaler.scale(loss).backward()
-                            # optimizer.step()
-                            scaler.step(optimizer)
-                            scaler.update()
-                        epoch_loss += loss.item() * data.size(0)
-                        del loss
+                        if torch.isnan(loss):
+                            continue
+                        else:
+                            if phase == 'train':
+                                loss.backward()
+                                # scaler.scale(loss).backward()
+                                optimizer.step()
+                                # scaler.step(optimizer)
+                                # scaler.update()
+                            epoch_loss += loss.item() * data.size(0)
+                            del loss
 
             avg_loss = epoch_loss / len(dataloaders_dict[phase].dataset)
             

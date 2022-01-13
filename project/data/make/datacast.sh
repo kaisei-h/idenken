@@ -1,11 +1,11 @@
 #!/bin/bash
 #$ -S /bin/bash
 #$ -cwd
-#$ -l s_vmem=96G
-#$ -l mem_req=96G
+#$ -l s_vmem=16G
+#$ -l mem_req=16G
 #$ -e dc.log
 #$ -o dc.log
-#$ -t 1-1:1
+#$ -t 1-5:1
 
 source ~/.bashrc
 name="train"
