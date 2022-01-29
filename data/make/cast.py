@@ -21,7 +21,7 @@ for i in range(cnt):
     target_array.append(np.loadtxt(target_path, delimiter=",", dtype=np.float))
 
 print(f"saving to seq{sys.argv[3]}.pkl")
-pickle.dump(np.stack(seq_array), open(f"maxspan50/seq_{sys.argv[2]}.pkl", "wb"))
+pickle.dump(np.stack(seq_array), open(f"maxspan40/seq_{sys.argv[2]}.pkl", "wb"))
 
 # print(f"saving to {sys.argv[3]}.tsv")
 # with open(f"maxspan50/{sys.argv[3]}.tsv", 'w') as f:
@@ -29,5 +29,5 @@ pickle.dump(np.stack(seq_array), open(f"maxspan50/seq_{sys.argv[2]}.pkl", "wb"))
 #     f.writelines(kmer_array)
 
 print(f"saving to target_{sys.argv[3]}.pkl")
-pickle.dump(np.stack(target_array), open(f"maxspan50/target_{sys.argv[2]}.pkl", "wb"))
+pickle.dump(np.stack(target_array), open(f"maxspan40/target_{sys.argv[2]}.pkl", "wb"))
 
