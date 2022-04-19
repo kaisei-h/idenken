@@ -35,16 +35,16 @@ class Variable(nn.Module):
         self.convs = nn.ModuleList()
         self.convs.append(conv1DBatchNormMish(in_channels=emb_dim, out_channels=num_filters,
                          kernel_size=kernel_sizes, padding=kernel_sizes//2, stride=1))
-        self.convs.append(nn.LSTM(512, 256, 2, bidirectional=True, batch_first=True))
+        # self.convs.append(nn.LSTM(512, 256, 2, bidirectional=True, batch_first=True))
         self.convs.append(scSE(channels=num_filters))
         for i in range(num_layer):
             self.convs.append(conv1DBatchNormMish(in_channels=num_filters, out_channels=num_filters,
                                                     kernel_size=kernel_sizes, padding=(kernel_sizes//2)*1, dilation=1))
-            self.convs.append(conv1DBatchNormMish(in_channels=num_filters, out_channels=num_filters,
+            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters,
                                                     kernel_size=kernel_sizes, padding=(kernel_sizes//2)*3, dilation=3))
-            self.convs.append(conv1DBatchNormMish(in_channels=num_filters, out_channels=num_filters,
+            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters,
                                                     kernel_size=kernel_sizes, padding=(kernel_sizes//2)*1, dilation=1))
-            self.convs.append(conv1DBatchNormMish(in_channels=num_filters, out_channels=num_filters,
+            self.convs.append(conv1DBatchNormRelu(in_channels=num_filters, out_channels=num_filters,
                                                     kernel_size=kernel_sizes, padding=(kernel_sizes//2)*5, dilation=5))
 
 
