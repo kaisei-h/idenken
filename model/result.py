@@ -4,9 +4,11 @@
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 import numpy as np
+from datetime import datetime, timedelta, timezone
 
 
-def plot_result(y_true:np.array, y_est:np.array, lims=[-1, 15]) -> None:
+
+def plot_result(y_true:np.array, y_est:np.array, lims=[-1, 15], mode='save') -> None:
     fig,ax = plt.subplots(1,1,dpi=150,figsize=(5,5))
     heatmap, xedges, yedges = np.histogram2d(y_true, y_est, bins=100,range=(lims,lims))
     extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
@@ -20,7 +22,14 @@ def plot_result(y_true:np.array, y_est:np.array, lims=[-1, 15]) -> None:
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.1)
     fig.colorbar(cset, cax=cax).ax.set_title("count")
-    plt.show()
+    if mode=='show':
+        plt.show()
+    elif mode=='save':
+        JST = timezone(timedelta(hours=+9), 'JST')
+        dt_now = datetime.now(JST)
+        dt_now = dt_now.strftime('%Y%m%d-%H%M%S')
+        fig.savefig(f'{dt_now}.png')
+
     
     
 def learning_curve(train_loss_list, val_loss_list, epochs):

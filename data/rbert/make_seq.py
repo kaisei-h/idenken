@@ -8,7 +8,7 @@ num = int(sys.argv[1])
 length = int(sys.argv[2])
 idx = int(sys.argv[3])
 
-with open(f'w50/sequence/seq{idx}.fa', 'w') as f:
+with open(f'sequence/seq{idx}.fa', 'w') as f:
         for i in range(num):
                 a = np.random.randint(20,50)
                 u = np.random.randint(20,50)

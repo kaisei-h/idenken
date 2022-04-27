@@ -3,12 +3,10 @@ import csv
 import re
 import sys
 
-num = int(sys.argv[1])
-length = int(sys.argv[2])
-idx = int(sys.argv[3])
+idx = int(sys.argv[1])
 
-with open(f'w50/output/out{idx}.txt', 'r') as fr:
-        with open(f'w50/accessibility/acc{idx}.csv', 'w') as fw:
+with open(f'output/out{idx}.txt', 'r') as fr:
+        with open(f'accessibility/acc{idx}.csv', 'w') as fw:
                 for i, l in enumerate(fr):
                         if (l[0]=='>'):
                                 acc_list = []

@@ -13,6 +13,9 @@ def train(device, net, dataloaders_dict, criterion, optimizer, epochs):
     val_loss_list = []
     train_time_list = []
     val_time_list = []
+    data_all = []
+    target_all = []
+    output_all = []
 
     for epoch in range(epochs):
         
@@ -28,9 +31,6 @@ def train(device, net, dataloaders_dict, criterion, optimizer, epochs):
         
             epoch_loss = 0
 
-            data_all = []
-            target_all = []
-            output_all = []
             if (epoch==0) and (phase=='train'):
                 continue
 
@@ -49,16 +49,14 @@ def train(device, net, dataloaders_dict, criterion, optimizer, epochs):
                 with torch.cuda.amp.autocast():
                     with torch.set_grad_enabled(phase=='train'):
                         output = net(data)
-                                
-                        if (phase == 'val') and ((epoch+1)%5==0):
-                            for i in range(len(target)):
-                                # if (0 in data[i]):
-                                #     output[i][:256-data[i].tolist().index(0)] = 0
-                                # data_all.append(data[i].cpu().numpy())
-                                target_all.append(target[i].cpu().numpy())
-                                output_all.append(output[i].cpu().numpy())
+                        
+                        if (phase == 'val') and ((epoch+1)==epochs):
+                            data_all.append(data.cpu().numpy())
+                            target_all.append(target.cpu().numpy())
+                            output_all.append(output.cpu().numpy())
 
                         loss = criterion(output, target)
+    
                         if phase == 'train':
                             # loss.backward()
                             # optimizer.step()
@@ -83,41 +81,63 @@ def train(device, net, dataloaders_dict, criterion, optimizer, epochs):
                 train_time_list.append(finish - start)
                 train_loss_list.append(avg_loss)
                 # scheduler.step()
-        
-        if ((epoch+1)%5==0):
-            result.plot_result(np.array(target_all).reshape(-1), np.array(output_all).reshape(-1))
-        
+    
+    data_all = np.concatenate(data_all)
+    target_all = np.concatenate(target_all)
+    output_all = np.concatenate(output_all)
+    result.plot_result(target_all.reshape(-1), output_all.reshape(-1))        
         # torch.save({'epoch': epoch,
         #             'model_state_dict': net.state_dict(),
         #             'optimizer_state_dict': optimizer.state_dict(),
         #             'loss': loss,
         #            }, '256_middle.pth')
+
     train_time = sum(train_time_list) / len(train_time_list)
     val_time = sum(val_time_list) / len(val_time_list)
     
-    return train_loss_list, val_loss_list, target_all, output_all, train_time, val_time
+    return train_loss_list, val_loss_list, data_all, target_all, output_all, train_time, val_time
 
 
-def test(device, net, test_dataloader, criterion):
-    net.eval()
+
+def test(device, net, dataloader, criterion):
+    start = time.time()
+    net.to(device)
+
     data_all = []
     target_all = []
     output_all = []
     test_loss = 0
+    net.eval()
+
     with torch.no_grad():
-        for data, target in test_dataloader:
-            data, target = data.to(device), target.to(device)
+        for batch in dataloader:
+            low_seq, _, accessibility = batch
+            data = low_seq.to(device, non_blocking=False)
+            target = accessibility.to(device, non_blocking=False)
+
             output = net(data)
-            for i in range(len(target)):
-#                 if (0 in data[i]):
-#                      output[i][:256-data[i].tolist().index(0)] = 0
-                data_all.append(data[i].cpu().numpy())
-                target_all.append(target[i].cpu().numpy())
-                output_all.append(output[i].cpu().numpy())
+            
+            data_all.append(data.cpu().numpy())
+            target_all.append(target.cpu().numpy())
+            output_all.append(output.cpu().numpy())
+
             loss = criterion(output, target)
-            test_loss += loss.item()
-        test_loss = test_loss / len(test_dataloader)
-    return test_loss, data_all, target_all, output_all
+
+            test_loss += loss.item() * data.size(0)
+    avg_loss = test_loss / len(dataloader.dataset)
+    
+    finish = time.time()
+    test_time = finish - start
+    print(f'Loss:{avg_loss:.4f} Timer:{test_time:.4f}')
+
+    data_all = np.concatenate(data_all)
+    target_all = np.concatenate(target_all)
+    output_all = np.concatenate(output_all)
+    result.plot_result(target_all.reshape(-1), output_all.reshape(-1))        
+
+    
+    return data_all, target_all, output_all, avg_loss, test_time
+
 
 
 def predict(device, net, input_seq):
