@@ -4,6 +4,7 @@ import numpy as np
 # 自作
 import result
 
+
 def train(device, net, dataloaders_dict, criterion, optimizer, epochs):
     net.to(device)
     torch.backends.cudnn.benchmark = True
