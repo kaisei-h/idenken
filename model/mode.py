@@ -100,15 +100,14 @@ def train(device, net, dataloaders_dict, criterion, optimizer, epochs):
 
 
 
-def test(device, net, dataloader, criterion):
+def test(device, model, dataloader, criterion):
+    model.to(device)
     start = time.time()
-    net.to(device)
-
     data_all = []
     target_all = []
     output_all = []
     test_loss = 0
-    net.eval()
+    model.eval()
 
     with torch.no_grad():
         for batch in dataloader:
@@ -116,17 +115,17 @@ def test(device, net, dataloader, criterion):
             data = low_seq.to(device, non_blocking=False)
             target = accessibility.to(device, non_blocking=False)
 
-            output = net(data)
-            
-            data_all.append(data.cpu().numpy())
-            target_all.append(target.cpu().numpy())
-            output_all.append(output.cpu().numpy())
+            output = model(data)
+
+            data_all.append(data.cpu().detach().numpy())
+            target_all.append(target.cpu().detach().numpy())
+            output_all.append(output.cpu().detach().numpy())
 
             loss = criterion(output, target)
 
             test_loss += loss.item() * data.size(0)
     avg_loss = test_loss / len(dataloader.dataset)
-    
+
     finish = time.time()
     test_time = finish - start
     print(f'Loss:{avg_loss:.4f} Timer:{test_time:.4f}')
@@ -134,11 +133,8 @@ def test(device, net, dataloader, criterion):
     data_all = np.concatenate(data_all)
     target_all = np.concatenate(target_all)
     output_all = np.concatenate(output_all)
-    result.plot_result(target_all.reshape(-1), output_all.reshape(-1))        
-
     
-    return data_all, target_all, output_all, avg_loss, test_time
-
+    return data_all, target_all, output_all, test_time
 
 
 def predict(device, net, input_seq):

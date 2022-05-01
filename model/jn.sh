@@ -5,7 +5,7 @@
 #$ -V
 #$ -m be
 #$ -l gpu
-#$ -l cuda=2
+#$ -l cuda=1
 #$ -l s_vmem=128G
 #$ -l mem_req=128G
 #$ -N jnote
