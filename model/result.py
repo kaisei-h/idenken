@@ -8,7 +8,7 @@ from datetime import datetime, timedelta, timezone
 
 
 
-def plot_result(y_true:np.array, y_est:np.array, lims=[-1, 15], mode='save') -> None:
+def plot_result(y_true:np.array, y_est:np.array, lims=[-1.5, 15], mode='save') -> None:
     fig,ax = plt.subplots(1,1,dpi=150,figsize=(5,5))
     heatmap, xedges, yedges = np.histogram2d(y_true, y_est, bins=100,range=(lims,lims))
     extent = [xedges[0], xedges[-1], yedges[0], yedges[-1]]
@@ -209,3 +209,15 @@ def visible_one(target_all, output_all, data_all, loss_list, cor_list, idx=None)
     #         continue
     
     # print(''.join(base_list))
+
+def remove_padding(target, output):
+    tar = []
+    out = []
+    for t, o in zip(target.reshape(-1), output.reshape(-1)):
+        if t==-1 and round(o)==-1:
+            continue
+        else:
+            tar.append(t)
+            out.append(o)
+
+    return tar, out

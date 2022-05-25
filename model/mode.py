@@ -106,6 +106,7 @@ def test(device, model, dataloader, criterion):
     data_all = []
     target_all = []
     output_all = []
+    loss_all = []
     test_loss = 0
     model.eval()
 
@@ -122,6 +123,8 @@ def test(device, model, dataloader, criterion):
             output_all.append(output.cpu().detach().numpy())
 
             loss = criterion(output, target)
+            loss_all.append(loss.item())
+
 
             test_loss += loss.item() * data.size(0)
     avg_loss = test_loss / len(dataloader.dataset)
@@ -134,7 +137,7 @@ def test(device, model, dataloader, criterion):
     target_all = np.concatenate(target_all)
     output_all = np.concatenate(output_all)
     
-    return data_all, target_all, output_all, test_time
+    return data_all, target_all, output_all, loss_all, test_time
 
 
 def predict(device, net, input_seq):
