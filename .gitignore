@@ -1,0 +1,10 @@
+*.log
+*.txt
+*.csv
+*.tsv
+*.sif
+*.pkl
+*.pth
+*.zip
+raccess/
+*.fa

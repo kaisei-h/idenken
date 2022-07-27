@@ -1,0 +1,33 @@
+20220706-225902
+repeat_<class '__main__.NBERT'>
+device:  cuda
+Epoch 1/10
+val Loss:10.9576 Timer:87.1968
+Epoch 2/10
+train Loss:1.2523 Timer:33299.6374
+val Loss:1.1265 Timer:88.2113
+Epoch 3/10
+train Loss:1.1143 Timer:33280.0098
+val Loss:1.0838 Timer:79.1147
+Epoch 4/10
+train Loss:1.0915 Timer:33257.2911
+val Loss:1.0741 Timer:84.7067
+Epoch 5/10
+train Loss:1.0799 Timer:27647.7726
+val Loss:1.0647 Timer:59.4749
+Epoch 6/10
+train Loss:1.0721 Timer:25407.4246
+val Loss:1.0536 Timer:59.0152
+Epoch 7/10
+train Loss:1.0663 Timer:25434.4684
+val Loss:1.0536 Timer:59.3128
+Epoch 8/10
+train Loss:1.0622 Timer:25556.1262
+val Loss:1.0455 Timer:58.6020
+Epoch 9/10
+train Loss:1.0597 Timer:25404.7451
+val Loss:1.0778 Timer:59.0007
+Epoch 10/10
+train Loss:1.0574 Timer:25425.2366
+val Loss:1.0481 Timer:60.1272
+20220709-220235

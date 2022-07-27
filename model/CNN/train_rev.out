@@ -1,0 +1,6 @@
+20220727-143505
+stem_repeat_random
+device:  cuda
+Epoch 1/10
+val Loss:8.8355 Timer:105.1823
+Epoch 2/10

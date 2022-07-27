@@ -1,0 +1,33 @@
+20220710-224125
+stem_<class '__main__.CNN'>
+device:  cuda
+Epoch 1/10
+val Loss:9.6494 Timer:27.7915
+Epoch 2/10
+train Loss:1.7152 Timer:21653.1709
+val Loss:1.5025 Timer:29.0168
+Epoch 3/10
+train Loss:1.4377 Timer:21582.4573
+val Loss:1.3839 Timer:27.1722
+Epoch 4/10
+train Loss:1.3836 Timer:20935.3715
+val Loss:1.3465 Timer:27.3543
+Epoch 5/10
+train Loss:1.3644 Timer:20935.8791
+val Loss:1.3339 Timer:27.2206
+Epoch 6/10
+train Loss:1.3550 Timer:26576.5945
+val Loss:1.3191 Timer:26.9209
+Epoch 7/10
+train Loss:1.3485 Timer:20918.7650
+val Loss:1.3210 Timer:27.3207
+Epoch 8/10
+train Loss:1.3388 Timer:20938.7971
+val Loss:1.3052 Timer:27.0987
+Epoch 9/10
+train Loss:1.3316 Timer:20933.8450
+val Loss:1.3082 Timer:27.0817
+Epoch 10/10
+train Loss:1.3274 Timer:28170.8070
+val Loss:1.3041 Timer:50.0712
+20220713-071018

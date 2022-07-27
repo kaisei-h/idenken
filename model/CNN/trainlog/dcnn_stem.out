@@ -1,0 +1,36 @@
+20220710-224141
+stem_<class '__main__.DCNN'>
+device:  cuda
+Epoch 1/10
+val Loss:9.6383 Timer:124.8692
+Epoch 2/10
+train Loss:1.8803 Timer:55074.6420
+val Loss:1.6426 Timer:127.8634
+Epoch 3/10
+train Loss:1.5616 Timer:52871.6370
+val Loss:1.5198 Timer:126.1909
+Epoch 4/10
+train Loss:1.4743 Timer:52848.0847
+val Loss:1.4789 Timer:125.8388
+Epoch 5/10
+train Loss:1.4413 Timer:52942.9124
+val Loss:1.4000 Timer:126.4275
+Epoch 6/10
+train Loss:1.4279 Timer:52902.7451
+val Loss:1.4721 Timer:127.1064
+Epoch 7/10
+train Loss:1.4303 Timer:52914.8919
+val Loss:1.6769 Timer:125.8471
+Epoch 8/10
+train Loss:1.4220 Timer:55758.1915
+val Loss:1.4155 Timer:128.5148
+Epoch 9/10
+
+20220715-134320
+device:  cuda
+Epoch 8/10
+val Loss:1.4155 Timer:116.4363
+Epoch 9/10
+train Loss:1.4179 Timer:60046.4719
+val Loss:2.0383 Timer:121.4686
+ここでデータ消えたぴえん

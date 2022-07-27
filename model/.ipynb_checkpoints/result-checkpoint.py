@@ -125,6 +125,8 @@ def pickup_cor(target, output, threshold=0.5):
 def one_plot(target, output, length):
     if length>440:
         plt.figure(figsize=(length//100,4))
+    else:
+        plt.figure(figsize=(4,4))
     plt.plot(range(length), target[:length], label='target', color='b')
     plt.plot(range(length) , output[:length], label='output', color='r')
     plt.legend()

@@ -1,0 +1,43 @@
+20220629-132606
+repeat_<class '__main__.DCNN'>
+device:  cuda
+Epoch 1/10
+val Loss:7.9062 Timer:90.6553
+Epoch 2/10
+train Loss:1.4298 Timer:45760.2869
+val Loss:1.2442 Timer:90.9123
+Epoch 3/10
+train Loss:1.1550 Timer:45340.6479
+val Loss:1.1456 Timer:91.3812
+Epoch 4/10
+train Loss:1.1160 Timer:45404.1077
+val Loss:1.1426 Timer:90.9049
+Epoch 5/10
+train Loss:1.0977 Timer:45375.2201
+val Loss:1.1061 Timer:90.8332
+
+20220707-000304
+device:  cuda:0
+Epoch 5/10
+val Loss:1.1061 Timer:89.8417
+Epoch 6/10
+train Loss:1.0744 Timer:44943.0062
+val Loss:1.0837 Timer:89.7912
+Epoch 7/10
+train Loss:1.0709 Timer:44955.7086
+val Loss:1.0853 Timer:89.8342
+Epoch 8/10
+train Loss:1.0650 Timer:44949.4524
+val Loss:1.0794 Timer:89.9388
+
+20220709-075358
+device:  cuda:0
+Epoch 8/10
+val Loss:1.0794 Timer:89.4708
+Epoch 9/10
+train Loss:1.0614 Timer:44776.5265
+val Loss:1.1002 Timer:89.6591
+Epoch 10/10
+train Loss:1.0584 Timer:44790.1118
+val Loss:1.0648 Timer:90.3184
+20220710-085746

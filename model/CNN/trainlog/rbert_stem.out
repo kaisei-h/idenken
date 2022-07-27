@@ -1,0 +1,44 @@
+20220712-072148
+stem_<class '__main__.RBERT'>
+device:  cuda
+Epoch 1/10
+val Loss:6.6138 Timer:116.9994
+Epoch 2/10
+train Loss:1.6284 Timer:48679.7056
+val Loss:1.5336 Timer:118.9503
+Epoch 3/10
+train Loss:1.4255 Timer:48698.2709
+val Loss:1.3191 Timer:118.9991
+Epoch 4/10
+train Loss:1.2367 Timer:48722.0137
+val Loss:1.0779 Timer:119.2921
+Epoch 5/10
+train Loss:1.0506 Timer:48685.5128
+val Loss:1.0020 Timer:119.3582
+Epoch 6/10
+train Loss:0.9995 Timer:48754.8771
+val Loss:0.9657 Timer:119.1702
+Epoch 7/10
+
+20220715-133832
+device:  cuda
+Epoch 6/10
+val Loss:0.9687 Timer:116.9260
+Epoch 7/10
+train Loss:0.9683 Timer:48698.9057
+val Loss:0.9341 Timer:119.3615
+
+20220716-165009
+device:  cuda
+Epoch 7/10
+val Loss:0.9341 Timer:82.6244
+Epoch 8/10
+train Loss:0.9037 Timer:32395.8882
+val Loss:0.8665 Timer:80.7272
+Epoch 9/10
+train Loss:0.8924 Timer:32327.5714
+val Loss:0.8669 Timer:80.6350
+Epoch 10/10
+train Loss:0.8847 Timer:32388.0720
+val Loss:0.8665 Timer:82.5737
+20220717-200040

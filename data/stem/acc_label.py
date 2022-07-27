@@ -3,9 +3,10 @@ import csv
 import re
 import sys
 
-idx = '03625'
-with open(f'out{idx}.txt', 'r') as fr:
-        with open(f'acc{idx}.csv', 'w') as fw:
+idx = int(sys.argv[1])
+
+with open(f'output/out{idx}.txt', 'r') as fr:
+        with open(f'accessibility/acc{idx}.csv', 'w') as fw:
                 for i, l in enumerate(fr):
                         if (l[0]=='>'):
                                 acc_list = []
