@@ -1,32 +1,38 @@
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = "0"
+
 import random
 import copy
-from Bio import SeqIO
-import datetime
+import time
+import gc
+import csv
+import sys
+import itertools
+import more_itertools
+import glob
+import json
+from datetime import datetime, timedelta, timezone
+
+sys.path.append('..')
+import result
+import mymodel
+import mode
+
+import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-import time
-import numpy as np
-import itertools
-import gc
-import csv
+from Bio import SeqIO
+from RNABERT.utils.bert import BertModel, get_config
 
-import os
-import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), "../"))
-import result
-import model
-
-from datetime import datetime, timedelta, timezone
 JST = timezone(timedelta(hours=+9), 'JST')
 dt_now = datetime.now(JST)
 dt_now = dt_now.strftime('%Y%m%d-%H%M%S')
 print(dt_now)
-
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+torch.cuda.device_count()
 
-print(f'torch.cuda.device_count()={torch.cuda.device_count()}')
 
 def kmer(seqs, k=1):
     #塩基文字列をk-mer文字列リストに変換
@@ -65,23 +71,16 @@ def convert(seqs, kmer_dict, max_length):
     if not max_length:
         max_length = max([len(i) for i in seqs])
     for s in seqs:
-        convered_seq = [kmer_dict[i] for i in s] + [0]*(max_length - len(s))
+        # NやWやYとかよくわからん塩基をMASKにしてしまおうと
+        convered_seq = [kmer_dict[i] if i in kmer_dict.keys() else 1 for i in s] + [0]*(max_length - len(s))
         seq_num.append(convered_seq)
     return seq_num
 
-def make_dict(k=3):
-    # seq to num 
-    l = ["A", "U", "G", "C"]
-    kmer_list = [''.join(v) for v in list(itertools.product(l, repeat=k))]
-    kmer_list.insert(0, "MASK")
-    dic = {kmer: i+1 for i,kmer in enumerate(kmer_list)}
-    return dic
-
 class AccDataset(torch.utils.data.Dataset):
-    def __init__(self, low_seq, seq_len, accessibility):
+    def __init__(self, low_seq, accessibility):
         self.data_num = len(low_seq)
         self.low_seq = low_seq
-        self.seq_len = seq_len
+        # self.seq_len = seq_len
         self.accessibility = accessibility
         
     def __len__(self):
@@ -89,12 +88,17 @@ class AccDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, idx):
         out_low_seq = self.low_seq[idx]
-        out_seq_len = self.seq_len[idx]
+        # out_seq_len = self.seq_len[idx]
         out_accessibility = self.accessibility[idx]
 
-        return out_low_seq, out_seq_len, out_accessibility
+        return out_low_seq, out_accessibility
+
 
 def make_dl(seq_data_path, acc_data_path):
+    flag = False
+    division = 1
+    max_length = 440
+    
     data_sets = seq_data_path
     seqs = []
     for i, data_set in enumerate(data_sets):
@@ -102,6 +106,28 @@ def make_dl(seq_data_path, acc_data_path):
             record = record[::-1] #reverseします
             seq = str(record.seq).upper()
             seqs.append(seq)
+    seqs_len = np.tile(np.array([len(i) for i in seqs]), 1)
+
+    if max(seqs_len)>max_length:
+        start = time.time()
+        flag = True
+        division += (max(seqs_len)-110) // 330
+        max_length += division * 330
+        finish = time.time()
+
+    k = 1
+    kmer_seqs = kmer(seqs, k)
+    masked_seq, low_seq = mask(kmer_seqs, rate = 0.02, mag = 1)
+    kmer_dict = {'MASK': 1, 'A': 2, 'U': 3, 'T': 3, 'G': 4, 'C': 5}
+    low_seq = torch.tensor(np.array(convert(low_seq, kmer_dict, max_length)))
+
+    if flag:
+        splited_seq = []
+        for i in low_seq:
+            splited_seq.append(list(more_itertools.windowed(i ,440 ,step = 330)))
+        low_seq = torch.tensor(splited_seq)
+        num_seq, division, length = low_seq.shape
+        low_seq = low_seq.view(-1, length)
 
     data_sets = acc_data_path
     accessibility = []
@@ -109,87 +135,79 @@ def make_dl(seq_data_path, acc_data_path):
         with open(data_set) as f:
             reader = csv.reader(f)
             for l in reader:
-                accessibility.append(l)
-
+                pad_acc = l + ['-1']*(max_length - len(l))
+                accessibility.append(pad_acc)
     accessibility = torch.tensor(np.array(accessibility, dtype=np.float32))
-    seqs_len = np.tile(np.array([len(i) for i in seqs]), 1)
-    k = 1
-    kmer_seqs = kmer(seqs, k)
-    masked_seq, low_seq = mask(kmer_seqs, rate = 0.02, mag = 1)
-    kmer_dict = make_dict(k)
-    swap_kmer_dict = {v: k for k, v in kmer_dict.items()}
-    low_seq = torch.tensor(np.array(convert(low_seq, kmer_dict, max_length)))
 
+    if flag:
+        start = time.time()
+        splited_acc = []
+        for i in accessibility:
+            splited_acc.append(list(more_itertools.windowed(i ,440 ,step = 330)))
+        accessibility = torch.tensor(splited_acc)
+        accessibility = accessibility.view(-1, length)
 
-    ds_ACC = AccDataset(low_seq, seqs_len, accessibility)
-    dl_ACC = torch.utils.data.DataLoader(ds_ACC, batch_size, shuffle=True)
-    return dl_ACC
+        finish = time.time()
+
+    ds_ACC = AccDataset(low_seq, accessibility)
+    dl_ACC = torch.utils.data.DataLoader(ds_ACC, batch_size, num_workers=2, shuffle=True)
+
+    return dl_ACC, flag, division
+
 
 def model_device(device, model):
     print("device: ", device)
     model.to(device)
-    model = torch.nn.DataParallel(model) # make parallel
+    model = torch.nn.DataParallel(model, device_ids=[0]) # make parallel
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
     return model
 
-
-class ForAcc(nn.Module):
+class DCNN(nn.Module):
     def __init__(self):
-        super(ForAcc, self).__init__()
-
+        super(DCNN, self).__init__()
         self.embedding = nn.Embedding(6, 120)        
-        
         self.convs = nn.ModuleList()
-        self.convs.append(model.conv1DBatchNormMish(in_channels=120, out_channels=120,
-                                                    kernel_size=3, padding=1, dilation=1))
-        self.convs.append(model.scSE(channels=120))
-        for i in range(30):
-            self.convs.append(model.conv1DBatchNormMish(in_channels=120, out_channels=240,
-                                                    kernel_size=7, padding=3*9, dilation=9))
-            self.convs.append(model.conv1DBatchNormMish(in_channels=240, out_channels=480,
-                                                    kernel_size=7, padding=3*5, dilation=5))
-            self.convs.append(model.conv1DBatchNormMish(in_channels=480, out_channels=120,
-                                                    kernel_size=7, padding=3*1, dilation=1))
-        
-        self.convs.append(model.scSE(channels=120))
-        self.convs.append(model.conv1DBatchNorm(in_channels=120, out_channels=1, kernel_size=6))
-        
-
+        self.convs.append(mymodel.conv1DBatchNormRelu(in_channels=120, out_channels=120, kernel_size=3, padding=1, dilation=1))
+        self.convs.append(mymodel.scSE(channels=120))
+        for i in range(50):
+            self.convs.append(mymodel.conv1DBatchNormRelu(in_channels=120, out_channels=120, kernel_size=7, padding=3*5, dilation=5))
+        self.convs.append(mymodel.scSE(channels=120))
+        self.convs.append(mymodel.conv1DBatchNormRelu(in_channels=120, out_channels=480, kernel_size=1))
+        self.convs.append(mymodel.conv1DBatchNorm(in_channels=480, out_channels=1, kernel_size=9, padding=4))        
     def forward(self, input_ids):
         x = self.embedding(input_ids)
         x = torch.transpose(x, 1, 2)
         for i, l in enumerate(self.convs):
             x = l(x)        
-        x = x.view(x.shape[0], -1)
+        return x.view(x.shape[0], -1)
 
-        return x
-    
-comment = '100k_data'
+datatype = 'stem'
+modeltype = DCNN
 
-max_length ,batch_size = 440, 100
-seq_path = '../../data/rbert/sequence/'
-acc_path = '../../data/rbert/accessibility/'
+max_length ,batch_size = 440, 64
+seq_path = f'../../data/rbert/{datatype}/sequence/'
+acc_path = f'../../data/rbert/{datatype}/accessibility/'
 
 train_seq_paths = []
 train_acc_paths = []
-for n in range(1):
-    train_seq_paths.append([f'{seq_path}seq{n*i+1}.fa' for i in range(10)])
-    train_acc_paths.append([f'{acc_path}acc{n*i+1}.csv' for i in range(10)])
+for n in range(99):
+    train_seq_paths.append([f'{seq_path}seq{n*10+i+1}.fa' for i in range(10)])
+    train_acc_paths.append([f'{acc_path}acc{n*10+i+1}.csv' for i in range(10)])
 
-val_seq_path = [f'{seq_path}seq{i+1}.fa' for i in range(90,100)]
-val_acc_path = [f'{acc_path}acc{i+1}.csv' for i in range(90,100)]
+val_seq_path = [f'{seq_path}seq{i+1}.fa' for i in range(990,1000)]
+val_acc_path = [f'{acc_path}acc{i+1}.csv' for i in range(990,1000)]
 
-adam_lr = 3e-4
-model = ForAcc()
-model = model_device(device, model)
-optimizer = optim.RAdam([{'params': model.parameters(), 'lr': adam_lr}])
+
 criterion = nn.MSELoss().to(device)
+
+config = get_config(file_path = "../RNABERT/RNA_bert_config.json")
+model = modeltype()
+
+model = model_device(device, model)
+optimizer = optim.AdamW([{'params': model.parameters(), 'lr': config.adam_lr}])
+
 epochs = 10
-
-
-model.to(device)
-torch.backends.cudnn.benchmark = True
 scaler = torch.cuda.amp.GradScaler()
 
 train_loss_list = []
@@ -199,9 +217,19 @@ val_time_list = []
 data_all = []
 target_all = []
 output_all = []
-val_dl_ACC = make_dl(val_seq_path, val_acc_path)
+val_dl_ACC, flag, division = make_dl(val_seq_path, val_acc_path)
+
+checkpoint = torch.load(f'path/{datatype}_{modeltype}.pth')
+end_epoch = checkpoint['epoch']
+model.load_state_dict(checkpoint['model_state_dict'])
+optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+loss = checkpoint['loss']
+print(f'loss{loss}')
+print(f'end_epoch{end_epoch}')
 
 for epoch in range(epochs):
+    if (epoch < end_epoch): continue
+
     print(f'Epoch {epoch+1}/{epochs}')
     
     for phase in ['train', 'val']:
@@ -209,22 +237,24 @@ for epoch in range(epochs):
     
         if (epoch==0) and (phase=='train'):
             continue
+        elif (epoch==end_epoch) and (phase=='train'):
+            continue
         
         if phase == 'train':
             model.train()
             avg_losses = []
-            epoch_loss = 0
             for train_seq_path, train_acc_path in zip(train_seq_paths, train_acc_paths):
-                train_dl_ACC = make_dl(train_seq_path, train_acc_path)
+                train_dl_ACC, _, _ = make_dl(train_seq_path, train_acc_path)
+                epoch_loss = 0
                 for batch in train_dl_ACC:
-                    low_seq, _, accessibility = batch
+                    low_seq, accessibility = batch
                     data = low_seq.to(device, non_blocking=False)
                     target = accessibility.to(device, non_blocking=False)
                     optimizer.zero_grad()
                     if data.size()[0] == 1:
                         continue
                     with torch.cuda.amp.autocast():
-                        with torch.set_grad_enabled:
+                        with torch.set_grad_enabled(phase=='train'):
                             output = model(data)
                             loss = criterion(output, target)                            
                             scaler.scale(loss).backward()
@@ -239,7 +269,7 @@ for epoch in range(epochs):
             model.eval()            
             epoch_loss = 0
             for batch in val_dl_ACC:
-                low_seq, _, accessibility = batch
+                low_seq, accessibility = batch
                 data = low_seq.to(device, non_blocking=False)
                 target = accessibility.to(device, non_blocking=False)
 
@@ -249,14 +279,13 @@ for epoch in range(epochs):
                 with torch.cuda.amp.autocast():
                     output = model(data)
                     if (epoch+1)==epochs:
-                        data_all.append(data.cpu().numpy())
-                        target_all.append(target.cpu().numpy())
-                        output_all.append(output.cpu().numpy())
+                        data_all.append(data.cpu().detach().numpy())
+                        target_all.append(target.cpu().detach().numpy())
+                        output_all.append(output.cpu().detach().numpy())
                     
                     loss = criterion(output, target)
                     epoch_loss += loss.item() * data.size(0)         
             avg_loss = epoch_loss / len(val_dl_ACC.dataset)
-
         
         finish = time.time()
         print(f'{phase} Loss:{avg_loss:.4f} Timer:{finish - start:.4f}')
@@ -274,33 +303,31 @@ for epoch in range(epochs):
                 'model_state_dict': model.state_dict(),
                 'optimizer_state_dict': optimizer.state_dict(),
                 'loss': loss,
-               }, f'mypth/{comment}.pth')
+            }, f'path/{datatype}_{modeltype}.pth')
 
 data_all = np.concatenate(data_all)
 target_all = np.concatenate(target_all)
 output_all = np.concatenate(output_all)
-result.plot_result(target_all.reshape(-1), output_all.reshape(-1), mode='save')
+cor_list, loss_list = result.cal_indicators(target_all, output_all)
 
 train_time = sum(train_time_list) / len(train_time_list)
 val_time = sum(val_time_list) / len(val_time_list)
 
-
-
-cor_list, loss_list = result.cal_indicators(target.cpu().numpy(), output.cpu().numpy())
-
+pad_removed_target, pad_removed_output = result.remove_padding(target_all, output_all)
+true_loss = ((np.array(pad_removed_target) - np.array(pad_removed_output))**2).mean(axis=0)
+result.plot_result(pad_removed_target, pad_removed_output, mode='save', name=f'{datatype}_{modeltype}')
 
 dt_now = datetime.now(JST)
 dt_now = dt_now.strftime('%Y%m%d-%H%M%S')
 print(dt_now)
-with open(f'../jupyter-log/{dt_now}.log', 'w') as f:
-    f.writelines(f'comment: {comment}\n')
-    f.writelines(f'loss: {loss_list[-1]} \n')
+with open(f'log/{datatype}_{modeltype}_{dt_now}.log', 'w') as f:
+    f.writelines(f'true_loss: {true_loss} \n')
     f.writelines(f'cor: {sum(cor_list)/len(cor_list)} \n')
     f.writelines(f'train_time: {train_time} \n')
     f.writelines(f'val_time: {val_time} \n')
     f.writelines(f'train_loss: {train_loss_list} \n')
     f.writelines(f'val_loss: {val_loss_list} \n')
+    f.writelines(f'config: {config} \n')
     f.writelines(f'criterion: {criterion} \n')
     f.writelines(f'optimizer: {optimizer} \n')
     f.writelines(f'model: {model} \n')
-
